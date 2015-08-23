@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@drawable/yozora">
+
+    <view
+        android:id="@+id/header"
+        class="android.support.v7.widget.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/imageView"
+        android:src="@mipmap/ic_queue_music"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        />
+
+    <LinearLayout
+        android:id="@+id/id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#ffe6b842"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp">
+
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="phone"
+            android:textSize="@dimen/checkbox_text_size"
+            />
+
+        <CheckBox
+            android:id="@+id/checkBox2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="interphone"
+            android:textSize="@dimen/checkbox_text_size"
+            android:layout_marginTop="8dp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="cries of cicadases"
+            android:textSize="@dimen/checkbox_text_size"
+            android:layout_marginTop="8dp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="screaming of a woman"
+            android:textSize="@dimen/checkbox_text_size"
+            android:layout_marginTop="8dp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="police car"
+            android:textSize="@dimen/checkbox_text_size"
+            android:layout_marginTop="8dp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="a board scratching"
+            android:textSize="@dimen/checkbox_text_size"
+            android:layout_marginTop="8dp"/>
+
+        <CheckBox
+            android:id="@+id/checkBox7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="flying a mosquito"
+            android:textSize="@dimen/checkbox_text_size"
+            android:layout_marginTop="8dp"/>
+    </LinearLayout>
+
+
+</LinearLayout>

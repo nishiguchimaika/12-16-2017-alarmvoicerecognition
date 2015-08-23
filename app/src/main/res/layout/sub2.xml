@@ -1,0 +1,85 @@
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                tools:context=".Timer"
+                android:background="#ffff3a1c">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView1"
+            android:layout_weight="1"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView2"
+            android:scaleType="fitXY"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView3"
+            android:scaleType="fitXY"
+            android:layout_weight="1"
+            android:src="@drawable/betw"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView4"
+            android:scaleType="fitXY"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView5"
+            android:scaleType="fitXY"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView6"
+            android:layout_weight="1"
+            android:scaleType="fitXY"
+            android:src="@drawable/betw"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView7"
+            android:layout_weight="1"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView8"
+            android:layout_weight="1"
+            android:scaleType="fitXY"/>
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnStop"
+        android:src="@drawable/pause3"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:background="#f0bb39"
+        android:padding="10dp"/>
+</RelativeLayout>
