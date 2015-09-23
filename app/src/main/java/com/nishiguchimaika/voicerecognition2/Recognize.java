@@ -15,64 +15,61 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Recognize extends Activity {
-   // Intent recognizerIntent;
-    private static final int REQUEST_CODE = 0;
-    private final int[] soundResourceIds = {
-            R.raw.sound,
-            R.raw.sound1,
-            R.raw.sound2,
-            R.raw.sound3,
-            R.raw.sound4,
-            R.raw.sound5,
-            R.raw.sound6,
-            R.raw.sound7,
-    };
-    MediaPlayer[] mps;
-   // int[] mpIds = new int[soundResourceIds.length];
 
+    private static final int REQUEST_CODE = 0;
+    MediaPlayer mp;
+    int t;
+    int a;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main);
-        mps = new MediaPlayer[soundResourceIds.length];
+        a=0;
+        Intent new_intent = getIntent();
+        a = new_intent.getIntExtra("again", 0);
+        Log.e("TAG3", String.valueOf(a));
+
+        mp = MediaPlayer.create(this, R.raw.sound);
+        if(a==0){
+            mp.start();
+            mp.setLooping(true);
+        }
+        t=0;
+
         try {
-            // インテント作成
             Intent intent = new Intent(
-                    RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // ACTION_WEB_SEARCH
+                    RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
             intent.putExtra(
                     RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                     RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
             intent.putExtra(
                     RecognizerIntent.EXTRA_PROMPT,
-                    "Try speech."); // お好きな文字に変更できます
+                    "Try speech.");
 
-            // インテント発行
             startActivityForResult(intent, REQUEST_CODE);
         } catch (ActivityNotFoundException e) {
-            // このインテントに応答できるアクティビティがインストールされていない場合
             Toast.makeText(Recognize.this,
                     "ActivityNotFoundException", Toast.LENGTH_LONG).show();
         }
     }
 
-    // アクティビティ終了時に呼び出される
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // 自分が投げたインテントであれば応答する
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
 
             ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
             ArrayList<String> strArray=new ArrayList<String>();
 
-            //String str2 = "あと8時5分";
             String str2 = results.get(0);
-            String regex = "at|ad|@|後|あと([0-9]*)(分|分後|分前|ふん|年)";
-            String regex2 = "(あと|後)([0-9]*)時([0-9]*)(分|分後|分前|分で)";
+            String regex = "at|ad|@|後|あと([0-9]*)(分|分後|分前|ふん|分で|年)";
+            String regex2 = "(at|ad|@|あと|後)([0-9]*)時([0-9]*)(分|分後|分前|ふん|分で|年)";
+            String regex3 = "おきます|起きます|おきまーす|起きまーす|ポケモン|起き|おき|います";
             Pattern p = Pattern.compile(regex);
             Pattern p2 = Pattern.compile(regex2);
+            Pattern p3 = Pattern.compile(regex3);
             Matcher m2 = p2.matcher(str2);
+            Matcher m3 = p3.matcher(str2);
 
             for (int i = 0; i< results.size(); i++) {
                 Log.e("TAG",results.get(i));
@@ -81,8 +78,6 @@ public class Recognize extends Activity {
 
             Matcher[] m = new Matcher[results.size()];
 
-
-
             for (int i = 0; i< results.size(); i++) {
                 m[i]=p.matcher(strArray.get(i));
             }
@@ -90,31 +85,19 @@ public class Recognize extends Activity {
             for (int i = 0; i< results.size(); i++) {
 
                 if (m[i].find()&&m[i].group(1)!=null) {
-                    for(int n = 0; n < mps.length; n++){
-                            if(mps[n].isPlaying()){
-                                mps[n].stop();
-                                /*break;*/
-                            }
-                    }
+                    mp.stop();
                     String matchstr = m[i].group(1);
                     Log.e("TAG@1",matchstr);
-                    int q = Integer.parseInt(matchstr);
-                    Log.e("TAG", String.valueOf(q));
+                    int q1 = Integer.parseInt(matchstr);
+                    Log.e("TAG@2", String.valueOf(q1));
+                    int q = q1;
                     Intent timerIntent = new Intent(getApplicationContext(), Timer.class);
                     timerIntent.putExtra("time", q);
                     startActivity(timerIntent);
                     break;
                 }else if (i==results.size()-1){
-
                     if(m2.find()){
-                        for(int n = 0; n < mps.length; n++) {
-                            if(mps[n].isPlaying()){
-                                mps[n].stop();
-                                /*break;*/
-                            }
-                        }
-
-
+                        mp.stop();
                         String matchstr2 = m2.group(2);
                         String matchstr3 = m2.group(3);
                         int q1 = Integer.parseInt(matchstr2);
@@ -129,12 +112,18 @@ public class Recognize extends Activity {
                         startActivity(timerIntent);
                         break;
                         }
+                    }else if(m3.find()){
+                        mp.stop();
+                        Log.e("TAG@1",str2);
+                        Intent intent = new Intent(Recognize.this, Timer.class);
+                        t = 1;
+                        intent.putExtra("new_time",t);
+                        startActivity(intent);
                     }
 
                     try {
-                        // インテント作成
                         Intent intent = new Intent(
-                                RecognizerIntent.ACTION_RECOGNIZE_SPEECH); // ACTION_WEB_SEARCH
+                                RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
                         intent.putExtra(
                                 RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
@@ -142,10 +131,8 @@ public class Recognize extends Activity {
                                 RecognizerIntent.EXTRA_PROMPT,
                                 "Try speech.");
 
-                        // インテント発行
                         startActivityForResult(intent, REQUEST_CODE);
                     } catch (ActivityNotFoundException e) {
-                        // このインテントに応答できるアクティビティがインストールされていない場合
                         Toast.makeText(Recognize.this,
                                 "ActivityNotFoundException", Toast.LENGTH_LONG).show();
                     }

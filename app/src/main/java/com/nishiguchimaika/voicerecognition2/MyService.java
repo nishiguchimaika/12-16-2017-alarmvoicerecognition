@@ -1,32 +1,40 @@
 package com.nishiguchimaika.voicerecognition2;
 
+
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 
 public class MyService extends Service {
-  //  final static String TAG = "MyService";
-    MediaPlayer mp2;
- //   private PendingIntent voiceintent;
-
+    //public static MediaPlayer mp;
+    SharedPreferences pref;
+    int way;
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        //throw new UnsupportedOperationException("Not yet implemented");
         return null;
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        mp2 = MediaPlayer.create(this, R.raw.sound);
-        mp2.start();
+        pref = getSharedPreferences("select", Context.MODE_PRIVATE);
+        way = pref.getInt("way", 0);
 
-        Intent new_intent = new Intent(MyService.this, Recognize.class);
-        new_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(new_intent);
+        if(way==2){
+            Intent new_intent = new Intent(MyService.this, Calculate.class);
+            new_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(new_intent);
+        }else if(way==1) {
+            Intent new_intent = new Intent(MyService.this, Recognize.class);
+            new_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(new_intent);
+            /*mp = MediaPlayer.create(this, R.raw.sound);
+            mp.start();
+*/
+        }
 
         return super.onStartCommand(intent, flags, startId);
     }
@@ -35,8 +43,9 @@ public class MyService extends Service {
     public void onDestroy() {
         super.onDestroy();
 
-        if(mp2.isPlaying()){
-            mp2.stop();
-        }
+        /*if(mp.isPlaying()){
+            mp.stop();
+        }*/
     }
 }
+

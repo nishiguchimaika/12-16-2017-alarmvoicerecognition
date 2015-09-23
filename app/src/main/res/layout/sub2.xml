@@ -77,9 +77,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnStop"
-        android:src="@drawable/pause3"
+        android:src="@drawable/pause"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:background="#f0bb39"
-        android:padding="10dp"/>
+        />
 </RelativeLayout>

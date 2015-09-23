@@ -17,8 +17,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/imageView9"
-                android:src="@drawable/hosizora"
-                android:scaleType="fitXY"/>
+                android:src="@drawable/hosizora2"
+                android:scaleType="fitXY"
+                android:alpha="0.7"/>
 
             </LinearLayout>
 
@@ -38,15 +39,17 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignLeft="@+id/timePicker"
                 android:layout_alignStart="@+id/timePicker"
-                android:foregroundGravity="center_vertical"/>
+                android:foregroundGravity="center_vertical"
+                />
 
             <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
                     android:layout_gravity="bottom">
                 </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
@@ -71,10 +74,11 @@
                 android:layout_weight="1"
                 android:src="@drawable/start2"
                 android:scaleType="fitCenter"
-                android:background="#f0bb39"
                 android:layout_marginRight="5dp"
                 android:adjustViewBounds="true"
-                android:padding="16dp"/>
+                android:baselineAlignBottom="true"
+                android:padding="5dp"
+                android:background="#00000000"/>
 
             <ImageButton
                 android:id="@+id/stop"
@@ -86,13 +90,13 @@
                 android:layout_toLeftOf="@+id/sound"
                 android:layout_toStartOf="@+id/sound"
                 android:layout_weight="1"
-                android:src="@drawable/cancel"
+                android:src="@drawable/cancel2"
                 android:scaleType="fitCenter"
-                android:background="#f0bb39"
+                android:background="#00000000"
                 android:layout_marginRight="5dp"
                 android:layout_marginLeft="5dp"
                 android:adjustViewBounds="true"
-                android:padding="16dp"/>
+                android:padding="5dp"/>
 
             <ImageButton
                 android:id="@+id/sound"
@@ -104,10 +108,24 @@
                 android:src="@drawable/sound2"
                 android:layout_weight="1"
                 android:scaleType="fitCenter"
-                android:background="#f0bb39"
+                android:background="#00000000"
                 android:layout_marginLeft="5dp"
                 android:adjustViewBounds="true"
-                android:padding="16dp"/>
+                android:layout_marginRight="5dp"
+                android:padding="5dp"/>
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/math"
+                android:adjustViewBounds="true"
+                android:background="#00000000"
+                android:layout_weight="1"
+                android:layout_marginLeft="5dp"
+                android:onClick="mathBtn"
+                android:scaleType="fitCenter"
+                android:src="@drawable/sub2"
+                android:padding="5dp"/>
 
         </LinearLayout>
 

@@ -35,16 +35,29 @@ public class SubActivity extends AppCompatActivity {
     SoundPool[] soundPools;
     int[] soundPoolIds;
     CheckBox[] checkBoxes;
-
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
+
+    private void init(){
+        checkBoxes = new CheckBox[checkBoxIds.length];
+        soundPools = new SoundPool[soundResourceIds.length];
+        soundPoolIds = new int[soundResourceIds.length];
+        for (int i = 0; i < checkBoxes.length; i++) {
+            checkBoxes[i] = (CheckBox) findViewById(checkBoxIds[i]);
+            checkBoxes[i].setChecked(false);
+            checkBoxes[i].setTag(new Integer(i));
+            checkBoxes[i].setOnClickListener(soundClickListener);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sub);
+
+        init();
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.header);
-        setSupportActionBar(toolbar);
         toolbar.setNavigationIcon(R.mipmap.ic_keyboard_backspace_black_24px);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,30 +66,21 @@ public class SubActivity extends AppCompatActivity {
             }
         });
 
-        //SharedPreferencesを使うための初期設定
         pref = getSharedPreferences("select", Context.MODE_PRIVATE);
         editor = pref.edit();
-        editor.putInt("sounds", 0);
+        editor.putInt("color",0);
         editor.apply();
+        editor.putInt("sounds", 0);
+        checkBoxes[pref.getInt("position",0)].setChecked(true);
 
-        soundPools = new SoundPool[soundResourceIds.length];
-        soundPoolIds = new int[soundResourceIds.length];
         for (int i = 0; i < soundPools.length; i++) {
             soundPools[i] = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-            soundPoolIds[i] = soundPools[i].load(this,soundResourceIds[i], 1);
-            soundPools[i].setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener(){
+            soundPoolIds[i] = soundPools[i].load(this, soundResourceIds[i], 1);
+            soundPools[i].setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
-                public void onLoadComplete(SoundPool soundPool, int sampleId, int status){
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
                 }
             });
-        }
-
-        checkBoxes = new CheckBox[checkBoxIds.length];
-        for (int i = 0; i < checkBoxes.length; i++) {
-            checkBoxes[i] = (CheckBox) findViewById(checkBoxIds[i]);
-            checkBoxes[i].setChecked(false);
-            checkBoxes[i].setTag(new Integer(i));
-            checkBoxes[i].setOnClickListener(soundClickListener);
         }
     }
 
@@ -88,6 +92,7 @@ public class SubActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(intent, 0);
+
     }
 
     private View.OnClickListener soundClickListener = new View.OnClickListener() {
@@ -98,10 +103,18 @@ public class SubActivity extends AppCompatActivity {
                 checkBoxes[i].setChecked(false);
                 soundPools[i].stop(soundPoolIds[i]);
             }
+            setCheck(index);
             checkBoxes[index].setChecked(true);
+            editor.putInt("way",1);
+            editor.apply();
             soundPools[index].play(soundPoolIds[index],1,1,0,0,0);
             editor.putInt("sounds", index);
             editor.apply();
         }
     };
+
+    private void setCheck(int index){
+        editor.putInt("position",index);
+        editor.apply();
+    }
 }
