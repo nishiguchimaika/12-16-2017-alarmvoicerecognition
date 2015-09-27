@@ -17,11 +17,11 @@ public class SubActivity extends AppCompatActivity {
     private final int[] soundResourceIds = {
             R.raw.soundd1,
             R.raw.soundd2,
-            R.raw.soundd3,
+            R.raw.sound9,
             R.raw.soundd4,
-            R.raw.soundd5,
-            R.raw.soundd6,
-            R.raw.soundd7};
+            R.raw.sound11,
+            R.raw.sound8,
+            R.raw.sound10};
 
     private final int[] checkBoxIds = {
             R.id.checkBox1,
@@ -92,7 +92,6 @@ public class SubActivity extends AppCompatActivity {
         }
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(intent, 0);
-
     }
 
     private View.OnClickListener soundClickListener = new View.OnClickListener() {
@@ -105,7 +104,7 @@ public class SubActivity extends AppCompatActivity {
             }
             setCheck(index);
             checkBoxes[index].setChecked(true);
-            editor.putInt("way",1);
+            editor.putInt("way",0);
             editor.apply();
             soundPools[index].play(soundPoolIds[index],1,1,0,0,0);
             editor.putInt("sounds", index);

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
+import android.util.Log;
 
 public class MyService extends Service {
     //public static MediaPlayer mp;
@@ -22,15 +23,17 @@ public class MyService extends Service {
 
         pref = getSharedPreferences("select", Context.MODE_PRIVATE);
         way = pref.getInt("way", 0);
+        Log.e("MyService","ok");
 
         if(way==2){
             Intent new_intent = new Intent(MyService.this, Calculate.class);
             new_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(new_intent);
-        }else if(way==1) {
+        }else if(way==0) {
             Intent new_intent = new Intent(MyService.this, Recognize.class);
             new_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(new_intent);
+            Log.e("way","0");
             /*mp = MediaPlayer.create(this, R.raw.sound);
             mp.start();
 */
@@ -39,13 +42,13 @@ public class MyService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
-    @Override
+   /* @Override
     public void onDestroy() {
         super.onDestroy();
 
-        /*if(mp.isPlaying()){
+        *//*if(mp.isPlaying()){
             mp.stop();
-        }*/
-    }
+        }*//*
+    }*/
 }
 

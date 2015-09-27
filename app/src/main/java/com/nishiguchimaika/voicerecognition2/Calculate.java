@@ -1,6 +1,8 @@
 package com.nishiguchimaika.voicerecognition2;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
@@ -24,6 +26,39 @@ public class Calculate extends AppCompatActivity {
     SoundPool soundPool;
     int SoundResource = R.raw.soundd4;
     int SoundId;
+    SharedPreferences pref;
+    int level;
+
+    private void inIt(){
+        if(level==0) {
+            Random random = new Random();
+            int index = random.nextInt(20);
+            Random random2 = new Random();
+            int index2 = random2.nextInt(20);
+            textView4.setText(index + "+" + index2);
+            correct = index + index2;
+            answer = 0;
+            textView.setText(answer + "");
+        }else if(level==1){
+            Random random = new Random();
+            int index = random.nextInt(70);
+            Random random2 = new Random();
+            int index2 = random2.nextInt(70);
+            textView4.setText(index + "+" + index2);
+            correct = index + index2;
+            answer = 0;
+            textView.setText(answer + "");
+        }else if(level==2){
+            Random random = new Random();
+            int index = random.nextInt(150);
+            Random random2 = new Random();
+            int index2 = random2.nextInt(150);
+            textView4.setText(index + "+" + index2);
+            correct = index + index2;
+            answer = 0;
+            textView.setText(answer + "");
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,14 +82,9 @@ public class Calculate extends AppCompatActivity {
         });
         mp.start();
         mp.setLooping(true);
-        Random random = new Random();
-        int index = random.nextInt(30);
-        Random random2 = new Random();
-        int index2 = random2.nextInt(30);
-        textView4.setText(index+"+"+index2);
-        correct = index + index2;
-        answer = 0;
-        textView.setText(answer+"");
+        pref = getSharedPreferences("select", Context.MODE_PRIVATE);
+        level = pref.getInt("level", 0);
+        inIt();
     }
 
     public void go(View v){
@@ -75,14 +105,7 @@ public class Calculate extends AppCompatActivity {
             soundPool.play(SoundId,1,1,0,0,0);
         }
         textView3.setText("あと"+(15-number)+"問！");
-        Random random = new Random();
-        int index = random.nextInt(30);
-        Random random2 = new Random();
-        int index2 = random2.nextInt(30);
-        textView4.setText(index+"+"+index2);
-        correct = index + index2;
-        answer = 0;
-        textView.setText(answer+"");
+        inIt();
     }
 
     public void one(View v){

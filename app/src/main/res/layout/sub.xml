@@ -83,7 +83,7 @@
                     android:id="@+id/checkBox1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="phone"
+                    android:text="電話"
                     android:textSize="@dimen/checkbox_text_size"
                     android:textColor="#ffffffff"/>
 
@@ -91,7 +91,7 @@
                     android:id="@+id/checkBox2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="interphone"
+                    android:text="インターホン"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
                     android:textColor="#ffffffff"/>
@@ -100,7 +100,7 @@
                     android:id="@+id/checkBox3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="cries of cicadases"
+                    android:text="不安な音"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
                     android:textColor="#ffffffff"/>
@@ -112,7 +112,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="screaming of a woman"
+                    android:text="女の人の叫び声"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
                     android:textColor="#ffffffff"/>
@@ -121,7 +121,7 @@
                     android:id="@+id/checkBox5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="police car"
+                    android:text="クラクション"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
                     android:textColor="#ffffffff"/>
@@ -130,7 +130,7 @@
                     android:id="@+id/checkBox6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="a board scratching"
+                    android:text="救急車のサイレン"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
                     android:textColor="#ffffffff"/>
@@ -139,7 +139,7 @@
                     android:id="@+id/checkBox7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="flying a mosquito"
+                    android:text="拳銃"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
                     android:textColor="#ffffffff"

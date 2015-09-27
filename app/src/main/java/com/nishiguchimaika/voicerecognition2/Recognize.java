@@ -3,7 +3,9 @@ package com.nishiguchimaika.voicerecognition2;
 
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
@@ -18,24 +20,77 @@ public class Recognize extends Activity {
 
     private static final int REQUEST_CODE = 0;
     MediaPlayer mp;
-    int t;
     int a;
+    //int Day;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
+    int sounds;
+    int[] soundResourceIds = {
+            R.raw.sound1,
+            R.raw.sound2,
+            R.raw.sound9,
+            R.raw.sound4,
+            R.raw.sound11,
+            R.raw.sound8,
+            R.raw.sound10,
+    };
+    public static MediaPlayer[] mps;
+
+    private void init(){
+        for (int w = 0; w < soundResourceIds.length; w++) {
+            mps = new MediaPlayer[soundResourceIds.length];//mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
+            if (mps[soundResourceIds.length].isPlaying()) {
+                mps[soundResourceIds.length].stop();
+            }
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        a=0;
+        Log.e("Recognize", "ok");
+        a = 0;
         Intent new_intent = getIntent();
         a = new_intent.getIntExtra("again", 0);
         Log.e("TAG3", String.valueOf(a));
 
-        mp = MediaPlayer.create(this, R.raw.sound);
-        if(a==0){
+        pref = getSharedPreferences("select", Context.MODE_PRIVATE);
+        sounds = pref.getInt("sounds", 0);
+        editor = pref.edit();
+        editor.putInt("day", 1);
+        editor.apply();
+        //Day = 0;
+
+
+        if (a == 0) {
+            mp = MediaPlayer.create(this, R.raw.sound);
             mp.start();
             mp.setLooping(true);
+        } else if (a == 1) {
+            mps = new MediaPlayer[soundResourceIds.length];
+            if (sounds == 0) {
+                mps[0].start();
+                mps[0].setLooping(true);
+            } else if (sounds == 1) {
+                mps[1].start();
+                mps[1].setLooping(true);
+            } else if (sounds == 2) {
+                mps[2].start();
+                mps[2].setLooping(true);
+            } else if (sounds == 3) {
+                mps[3].start();
+                mps[3].setLooping(true);
+            } else if (sounds == 4) {
+                mps[4].start();
+                mps[4].setLooping(true);
+            } else if (sounds == 5) {
+                mps[5].start();
+                mps[5].setLooping(true);
+            } else if (sounds == 6) {
+                mps[6].start();
+                mps[6].setLooping(true);
+            }
         }
-        t=0;
-
         try {
             Intent intent = new Intent(
                     RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -59,35 +114,39 @@ public class Recognize extends Activity {
 
             ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-            ArrayList<String> strArray=new ArrayList<String>();
+            ArrayList<String> strArray = new ArrayList<String>();
 
             String str2 = results.get(0);
             String regex = "at|ad|@|後|あと([0-9]*)(分|分後|分前|ふん|分で|年)";
             String regex2 = "(at|ad|@|あと|後)([0-9]*)時([0-9]*)(分|分後|分前|ふん|分で|年)";
-            String regex3 = "おきます|起きます|おきまーす|起きまーす|ポケモン|起き|おき|います";
+            String regex3 = "おきます|起きます|おきまーす|起きまーす|ポケモン|起き|おき|います|今|沖縄|自慢|俺ます";
+            String regex4 = "あと(一点|一転|一善|一例|一)";
             Pattern p = Pattern.compile(regex);
             Pattern p2 = Pattern.compile(regex2);
             Pattern p3 = Pattern.compile(regex3);
+            Pattern p4 = Pattern.compile(regex4);
             Matcher m2 = p2.matcher(str2);
             Matcher m3 = p3.matcher(str2);
+            Matcher m4 = p4.matcher(str2);
 
-            for (int i = 0; i< results.size(); i++) {
-                Log.e("TAG",results.get(i));
+            for (int i = 0; i < results.size(); i++) {
+                Log.e("TAG", results.get(i));
                 strArray.add(results.get(i));
             }
 
             Matcher[] m = new Matcher[results.size()];
 
-            for (int i = 0; i< results.size(); i++) {
-                m[i]=p.matcher(strArray.get(i));
+            for (int i = 0; i < results.size(); i++) {
+                m[i] = p.matcher(strArray.get(i));
             }
 
-            for (int i = 0; i< results.size(); i++) {
+            for (int i = 0; i < results.size(); i++) {
 
-                if (m[i].find()&&m[i].group(1)!=null) {
+                if (m[i].find() && m[i].group(1) != null) {
                     mp.stop();
+                    init();
                     String matchstr = m[i].group(1);
-                    Log.e("TAG@1",matchstr);
+                    Log.e("TAG@1", matchstr);
                     int q1 = Integer.parseInt(matchstr);
                     Log.e("TAG@2", String.valueOf(q1));
                     int q = q1;
@@ -95,32 +154,58 @@ public class Recognize extends Activity {
                     timerIntent.putExtra("time", q);
                     startActivity(timerIntent);
                     break;
-                }else if (i==results.size()-1){
-                    if(m2.find()){
+                } else if (i == results.size() - 1) {
+                    if (m2.find()) {
                         mp.stop();
+                        for (int w = 0; w < soundResourceIds.length; w++) {
+                            mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
+                            if (mps[w].isPlaying()) {
+                                mps[w].stop();
+                            }
+                        }
                         String matchstr2 = m2.group(2);
                         String matchstr3 = m2.group(3);
                         int q1 = Integer.parseInt(matchstr2);
-                        Log.e("q1",q1+"");
+                        Log.e("q1", q1 + "");
                         int q2 = Integer.parseInt(matchstr3);
-                        Log.e("q2",q2+"");
-                        int q = q1*10+q2;
-                        Log.e("q(m2)",q+"");
-                        if(q2<10){
-                        Intent timerIntent = new Intent(getApplicationContext(),Timer.class);
-                        timerIntent.putExtra("time",q);
+                        Log.e("q2", q2 + "");
+                        int q = q1 * 10 + q2;
+                        Log.e("q(m2)", q + "");
+                        if (q2 < 10) {
+                            Intent timerIntent = new Intent(getApplicationContext(), Timer.class);
+                            timerIntent.putExtra("time", q);
+                            startActivity(timerIntent);
+                            break;
+                        }
+                    } else if (m3.find()) {
+                        mp.stop();
+                        for (int w = 0; w < soundResourceIds.length; w++) {
+                            mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
+                            if (mps[w].isPlaying()) {
+                                mps[w].stop();
+                            }
+                        }
+                        Log.e("TAG@@1", str2);
+                        //Day = 1;
+                        Intent intent = new Intent(Recognize.this, MainActivity.class);
+                        //intent.putExtra("new_time", Day);
+                        startActivity(intent);
+                        break;
+                    } else if (m4.find()) {
+                        mp.stop();
+                        for (int w = 0; w < soundResourceIds.length; w++) {
+                            mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
+                            if (mps[w].isPlaying()) {
+                                mps[w].stop();
+                            }
+                        }
+                        int q = 1;
+                        Log.e("1", "ok");
+                        Intent timerIntent = new Intent(Recognize.this, Timer.class);
+                        timerIntent.putExtra("time", q);
                         startActivity(timerIntent);
                         break;
-                        }
-                    }else if(m3.find()){
-                        mp.stop();
-                        Log.e("TAG@1",str2);
-                        Intent intent = new Intent(Recognize.this, Timer.class);
-                        t = 1;
-                        intent.putExtra("new_time",t);
-                        startActivity(intent);
                     }
-
                     try {
                         Intent intent = new Intent(
                                 RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -139,9 +224,30 @@ public class Recognize extends Activity {
                 }else{
                     Intent intent = new Intent(Recognize.this, Recognize.class);
                     startActivity(intent);
-                }
+                    }
             }
         }
-        super.onActivityResult(requestCode, resultCode, data);
+                super.onActivityResult(requestCode, resultCode, data);
     }
+
+            @Override
+            protected void onStop () {
+                super.onStop();
+                mp.stop();
+                for (int w = 0; w < soundResourceIds.length; w++) {
+                    mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
+                    if (mps[w].isPlaying()) {
+                        mps[w].stop();
+                    }
+                }
+                Log.e("onStop", "ok");
+                finish();
+            }
+            @Override
+            protected void onDestroy () {
+                super.onDestroy();
+                Log.e("onDestroy", "ok");
+                finish();
+            }
 }
+

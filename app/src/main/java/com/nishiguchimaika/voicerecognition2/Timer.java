@@ -1,10 +1,7 @@
 package com.nishiguchimaika.voicerecognition2;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -26,19 +23,19 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
     ImageButton btnStop;
     int q;
     int a;
-    int t;
-    int[] soundResourceIds = {
+    //int Day;
+    /*int[] soundResourceIds = {
             R.raw.sound1,
             R.raw.sound2,
-            R.raw.sound3,
+            R.raw.sound9,
             R.raw.sound4,
-            R.raw.sound5,
-            R.raw.sound6,
-            R.raw.sound7,
+            R.raw.sound11,
+            R.raw.sound8,
+            R.raw.sound10,
     };
     public static MediaPlayer[] mps;
     SharedPreferences pref;
-    int sounds;
+    int sounds;*/
     ImageView imageView1;
     ImageView imageView2;
     ImageView imageView3;
@@ -76,19 +73,20 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
         Intent timerIntent = getIntent();
         q = timerIntent.getIntExtra("time", 0);
         Log.e("q", String.valueOf(q));
-        a=0;
-        t=0;
-        Intent intent = getIntent();
-        t=intent.getIntExtra("new_time",0);
-        Log.e("t",String.valueOf(t));
+        a = 0;
 
-        final CounterClass timer = new CounterClass(q * 60000, 1000);
-        if(q!=0){
+        /*Day = 0;
+        Intent intent = getIntent();
+        Day=intent.getIntExtra("new_time",0);
+        Log.e("Day",String.valueOf(Day));*/
+
+        final CounterClass timer = new CounterClass(q * 1000, 1000);
+        if(q != 0){
             timer.start();
         }
 
-        pref = getSharedPreferences("select", Context.MODE_PRIVATE);
-        sounds = pref.getInt("sounds", 0);
+        /*pref = getSharedPreferences("select", Context.MODE_PRIVATE);
+        sounds = pref.getInt("sounds", 0);*/
 
         btnStop = (ImageButton) findViewById(R.id.btnStop);
 
@@ -104,27 +102,25 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mps = new MediaPlayer[soundResourceIds.length];
-                for(int i=0; i< soundResourceIds.length; i++) {
+                /*mps = new MediaPlayer[soundResourceIds.length];
+                for(int i = 0; i< soundResourceIds.length; i++) {
                     mps[i] = MediaPlayer.create(getApplicationContext(), soundResourceIds[i]);
                     if(mps[i].isPlaying()){
                         mps[i].stop();
                     }
-                }
+                }*/
                 timer.cancel();
                 Intent intent = new Intent(Timer.this, MainActivity.class);
                 startActivity(intent);
 
         }
         });
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 speechText();
             }
         }, 1000);
-
     }
 
     @Override
@@ -140,35 +136,35 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
         mTextToSpeech.setLanguage(Locale.ENGLISH);
     }
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
         mps = new MediaPlayer[soundResourceIds.length];
-        for(int i=0; i< soundResourceIds.length; i++){
+        for(int i = 0; i< soundResourceIds.length; i++){
             mps[i] = MediaPlayer.create(getApplicationContext(),soundResourceIds[i]);
             if(mps[i].isPlaying()){
                 mps[i].stop();
-            }else if(t==1){
+            }else if(Day == 1){
+                Log.e("Day","1");
                 mps[i].stop();
                 Intent new_intent = new Intent(Timer.this, MainActivity.class);
                 startActivity(new_intent);
             }
         }
 
-    }
+    }*/
 
     void speechText() {
-        if (!TextUtils.isEmpty((hour+(minute+(imagenumber[0] * 10 + imagenumber[1])*60+imagenumber[2]*10+imagenumber[3])/60) + "o'clock" + (minute+(imagenumber[0] * 10 + imagenumber[1])*60+imagenumber[2]*10+imagenumber[3])%60 + "minutes")) {
+        if (!TextUtils.isEmpty((hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "o'clock" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) % 60 + "minutes")) {
             if (mTextToSpeech.isSpeaking()) {
                 mTextToSpeech.stop();
             }
-            Log.d("speechText", (hour+(minute+(imagenumber[0] * 10 + imagenumber[1])*60+imagenumber[2]*10+imagenumber[3])/60) + "o'clock" + (minute+(imagenumber[0] * 10 + imagenumber[1])*60+imagenumber[2]*10+imagenumber[3])%60 + "minutes");
-            mTextToSpeech.speak((hour+(minute+(imagenumber[0] * 10 + imagenumber[1])*60+imagenumber[2]*10+imagenumber[3])/60) + "o'clock" + (minute+(imagenumber[0] * 10 + imagenumber[1])*60+imagenumber[2]*10+imagenumber[3])%60 + "minutes", TextToSpeech.QUEUE_FLUSH, null);
+            Log.d("speechText", (hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "o'clock" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) % 60 + "minutes");
+            mTextToSpeech.speak((hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "o'clock" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) % 60 + "minutes", TextToSpeech.QUEUE_FLUSH, null);
         }
     }
 
     public class CounterClass extends CountDownTimer {
-
         public CounterClass(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
             //TODO Auto_generated constructor stub
@@ -198,7 +194,7 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
 
         @Override
         public void onFinish() {
-                if (sounds == 0) {
+                /*if (sounds == 0) {
                     mps[0].start();
                     mps[0].setLooping(true);
                 } else if (sounds == 1) {
@@ -219,20 +215,13 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
                 } else if (sounds == 6) {
                     mps[6].start();
                     mps[6].setLooping(true);
-                }
+                }*/
 
-            for(int i=0; i< soundResourceIds.length; i++) {
-                if (t == 1) {
-                    mps[i].stop();
-                }
-            }
-
-                Log.i("音声認識","No.2");
+                Log.i("音声認識","again");
                 Intent new_intent = new Intent(Timer.this, Recognize.class);
-                a=1;
-                new_intent.putExtra("again",a);
+                a = 1;
+                new_intent.putExtra("again", a);
                 startActivity(new_intent);
-
             }
         }
  }

@@ -40,6 +40,7 @@
                 android:layout_alignLeft="@+id/timePicker"
                 android:layout_alignStart="@+id/timePicker"
                 android:foregroundGravity="center_vertical"
+                android:timePickerMode="clock"
                 />
 
             <LinearLayout
@@ -124,7 +125,7 @@
                 android:layout_marginLeft="5dp"
                 android:onClick="mathBtn"
                 android:scaleType="fitCenter"
-                android:src="@drawable/sub2"
+                android:src="@drawable/calculate2"
                 android:padding="5dp"/>
 
         </LinearLayout>

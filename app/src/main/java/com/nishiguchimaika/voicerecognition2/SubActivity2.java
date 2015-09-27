@@ -1,27 +1,47 @@
 package com.nishiguchimaika.voicerecognition2;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.Switch;
+import android.widget.CheckBox;
+import android.widget.ImageView;
 
-public class SubActivity2 extends Activity implements CompoundButton.OnCheckedChangeListener {
+public class SubActivity2 extends AppCompatActivity {
 
-    Switch switch1;
+    private final int[] checkBoxIds = {
+            R.id.checkBox,
+            R.id.checkBox2,
+            R.id.checkBox3
+    };
+    CheckBox[] checkBoxes;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
+    ImageView imageView;
+    int pic;
+
+    private void init(){
+        checkBoxes = new CheckBox[checkBoxIds.length];
+        for (int i = 0; i < checkBoxes.length; i++) {
+            checkBoxes[i] = (CheckBox) findViewById(checkBoxIds[i]);
+            checkBoxes[i].setChecked(false);
+            checkBoxes[i].setTag(new Integer(i));
+            checkBoxes[i].setOnClickListener(checkClickListener);
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sub4);
+
+        init();
+
+        imageView = (ImageView) findViewById(R.id.imageView);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.header);
         toolbar.setNavigationIcon(R.mipmap.ic_keyboard_backspace_black_24px);
@@ -32,32 +52,66 @@ public class SubActivity2 extends Activity implements CompoundButton.OnCheckedCh
             }
         });
 
-        switch1 = (Switch) findViewById(R.id.switch1);
-        switch1.setOnCheckedChangeListener(this);
-
         pref = getSharedPreferences("select", Context.MODE_PRIVATE);
         editor = pref.edit();
+        editor.putInt("color",1);
+        editor.apply();
+        editor.putInt("level", 0);
+        pic = pref.getInt("level", 0);
+        checkBoxes[pref.getInt("position2",0)].setChecked(true);
+        if(pic==0){
+            imageView.setImageResource(R.drawable.calculate);
+        }else if(pic==1){
+            imageView.setImageResource(R.drawable.calculatee2);
+        }else if(pic==2){
+            imageView.setImageResource(R.drawable.calculatee3);
+        }
+    }
+
+    private View.OnClickListener checkClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            final int index = (Integer) v.getTag();
+            for (int i = 0; i < checkBoxes.length; i++) {
+                checkBoxes[i].setChecked(false);
+            }
+            setCheck(index);
+            checkBoxes[index].setChecked(true);
+            if(index == 0){
+                imageView.setImageResource(R.drawable.calculate);
+            }else if(index == 1){
+                imageView.setImageResource(R.drawable.calculatee2);
+            }else if(index == 2){
+                imageView.setImageResource(R.drawable.calculatee3);
+            }
+            /*checkBoxes[index].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    // TODO Auto-generated method stub
+                    // チェック状態が変更された時の処理を記述
+                    if(index == 0){
+                        imageView.setImageResource(R.drawable.calculate);
+                    }else if(index == 1){
+                        imageView.setImageResource(R.drawable.calculatee2);
+                    }else if(index == 2){
+                        imageView.setImageResource(R.drawable.calculatee3);
+                    }
+                }
+            });*/
+            editor.putInt("level", index);
+            editor.apply();
+            editor.putInt("way",2);
+            editor.apply();
+        }
+    };
+
+    private void setCheck(int index){
+        editor.putInt("position2",index);
+        editor.apply();
     }
 
     public void startMainActivity() {
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivityForResult(intent, 0);
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        if (isChecked == true) {
-            switch1.setChecked(true);
-            Log.i("true","ですよ");
-            editor.putInt("color",1);
-            editor.putInt("way", 2);
-            editor.apply();
-        } else {
-            Log.i("false","ですよ");
-            switch1.setChecked(false);
-            editor.putInt("way", 1);
-            editor.putInt("color",0);
-            editor.apply();
-        }
     }
 }
