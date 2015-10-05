@@ -21,7 +21,6 @@ public class Recognize extends Activity {
     private static final int REQUEST_CODE = 0;
     MediaPlayer mp;
     int a;
-    //int Day;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     int sounds;
@@ -38,9 +37,10 @@ public class Recognize extends Activity {
 
     private void init(){
         for (int w = 0; w < soundResourceIds.length; w++) {
-            mps = new MediaPlayer[soundResourceIds.length];//mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
-            if (mps[soundResourceIds.length].isPlaying()) {
-                mps[soundResourceIds.length].stop();
+            mps = new MediaPlayer[soundResourceIds.length];
+            mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
+            if (mps[w].isPlaying()) {
+                mps[w].stop();
             }
         }
     }
@@ -59,8 +59,6 @@ public class Recognize extends Activity {
         editor = pref.edit();
         editor.putInt("day", 1);
         editor.apply();
-        //Day = 0;
-
 
         if (a == 0) {
             mp = MediaPlayer.create(this, R.raw.sound);
@@ -68,6 +66,9 @@ public class Recognize extends Activity {
             mp.setLooping(true);
         } else if (a == 1) {
             mps = new MediaPlayer[soundResourceIds.length];
+            for (int w = 0; w < soundResourceIds.length; w++) {
+                mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
+            }
             if (sounds == 0) {
                 mps[0].start();
                 mps[0].setLooping(true);
@@ -156,13 +157,9 @@ public class Recognize extends Activity {
                     break;
                 } else if (i == results.size() - 1) {
                     if (m2.find()) {
+                        mp = MediaPlayer.create(this, R.raw.sound);
                         mp.stop();
-                        for (int w = 0; w < soundResourceIds.length; w++) {
-                            mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
-                            if (mps[w].isPlaying()) {
-                                mps[w].stop();
-                            }
-                        }
+                        init();
                         String matchstr2 = m2.group(2);
                         String matchstr3 = m2.group(3);
                         int q1 = Integer.parseInt(matchstr2);
@@ -178,13 +175,24 @@ public class Recognize extends Activity {
                             break;
                         }
                     } else if (m3.find()) {
+                        mp = MediaPlayer.create(this, R.raw.sound);
                         mp.stop();
-                        for (int w = 0; w < soundResourceIds.length; w++) {
-                            mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
-                            if (mps[w].isPlaying()) {
-                                mps[w].stop();
-                            }
+                        if (sounds == 0) {
+                            mps[0].stop();
+                        } else if (sounds == 1) {
+                            mps[1].stop();
+                        } else if (sounds == 2) {
+                            mps[2].stop();
+                        } else if (sounds == 3) {
+                            mps[3].stop();
+                        } else if (sounds == 4) {
+                            mps[4].stop();
+                        } else if (sounds == 5) {
+                            mps[5].stop();
+                        } else if (sounds == 6) {
+                            mps[6].stop();
                         }
+                        //init();
                         Log.e("TAG@@1", str2);
                         //Day = 1;
                         Intent intent = new Intent(Recognize.this, MainActivity.class);
@@ -193,12 +201,7 @@ public class Recognize extends Activity {
                         break;
                     } else if (m4.find()) {
                         mp.stop();
-                        for (int w = 0; w < soundResourceIds.length; w++) {
-                            mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
-                            if (mps[w].isPlaying()) {
-                                mps[w].stop();
-                            }
-                        }
+                        init();
                         int q = 1;
                         Log.e("1", "ok");
                         Intent timerIntent = new Intent(Recognize.this, Timer.class);
@@ -234,12 +237,7 @@ public class Recognize extends Activity {
             protected void onStop () {
                 super.onStop();
                 mp.stop();
-                for (int w = 0; w < soundResourceIds.length; w++) {
-                    mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
-                    if (mps[w].isPlaying()) {
-                        mps[w].stop();
-                    }
-                }
+                init();
                 Log.e("onStop", "ok");
                 finish();
             }
