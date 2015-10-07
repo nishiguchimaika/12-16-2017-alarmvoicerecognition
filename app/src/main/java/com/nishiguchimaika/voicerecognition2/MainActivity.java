@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton stopBtn;
     ImageButton soundBtn;
     ImageButton mathBtn;
+    ImageButton setBtn;
     SharedPreferences pref;
     SharedPreferences.Editor editor;
     int color;
@@ -59,10 +60,11 @@ public class MainActivity extends AppCompatActivity {
         Log.e("color2",String.valueOf(color2));
         day = pref.getInt("day", 0);
 
-        startBtn = (ImageButton)findViewById(R.id.start);
-        stopBtn = (ImageButton)findViewById(R.id.stop);
-        soundBtn = (ImageButton)findViewById(R.id.sound);
-        mathBtn = (ImageButton)findViewById(R.id.math);
+        startBtn = (ImageButton) findViewById(R.id.start);
+        stopBtn = (ImageButton) findViewById(R.id.stop);
+        soundBtn = (ImageButton) findViewById(R.id.sound);
+        mathBtn = (ImageButton) findViewById(R.id.math);
+        setBtn = (ImageButton) findViewById(R.id.setting);
         startBtn.setOnClickListener(myAlarmListener);
         stopBtn.setOnClickListener(myAlarmListener);
         soundBtn.setOnClickListener(new View.OnClickListener(){
@@ -73,6 +75,11 @@ public class MainActivity extends AppCompatActivity {
         mathBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startSubActivity2();
+            }
+        });
+        setBtn.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                startSubActivity3();
             }
         });
     }
@@ -175,12 +182,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void startSubActivity(){
         Intent intent = new Intent(this, SubActivity.class);
-        startActivityForResult(intent,0);
+        startActivityForResult(intent, 0);
     }
-
     private void startSubActivity2(){
         Intent intent2 = new Intent(this, SubActivity2.class);
-        startActivityForResult(intent2,0);
+        startActivityForResult(intent2, 0);
+    }
+    private void startSubActivity3(){
+        Intent intent3 = new Intent(this, SetActivity.class);
+        startActivityForResult(intent3, 0);
     }
 
     @Override
