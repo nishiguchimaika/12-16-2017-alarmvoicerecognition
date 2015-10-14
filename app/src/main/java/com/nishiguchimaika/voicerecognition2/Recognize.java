@@ -2,6 +2,7 @@ package com.nishiguchimaika.voicerecognition2;
 
 
 import android.app.Activity;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Recognize extends Activity {
+public class Recognize extends Activity implements OnCompletionListener{
 
     private static final int REQUEST_CODE = 0;
     MediaPlayer mp;
@@ -36,15 +37,22 @@ public class Recognize extends Activity {
     public static MediaPlayer[] mps;
 
     private void init(){
+        mp = new MediaPlayer();
+        mp = MediaPlayer.create(this, R.raw.sound);
+        if(mp.isLooping()){
+            mp.stop();
+        }
         for (int w = 0; w < soundResourceIds.length; w++) {
             mps = new MediaPlayer[soundResourceIds.length];
             mps[w] = MediaPlayer.create(getApplicationContext(), soundResourceIds[w]);
-            if (mps[w].isPlaying()) {
+            if (mps[w].isLooping()) {
                 mps[w].stop();
+                Log.e("mps[w]","stop");
             }
-        }
-    }
 
+        }
+        //mp.stop();
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +71,9 @@ public class Recognize extends Activity {
         if (a == 0) {
             mp = MediaPlayer.create(this, R.raw.sound);
             mp.start();
-            mp.setLooping(true);
+            Log.e("a","0");
+            mp.setOnCompletionListener(this);
+            //mp.setLooping(true);
         } else if (a == 1) {
             mps = new MediaPlayer[soundResourceIds.length];
             for (int w = 0; w < soundResourceIds.length; w++) {
@@ -110,6 +120,14 @@ public class Recognize extends Activity {
     }
 
     @Override
+    public void onCompletion(MediaPlayer arg0) {
+        // TODO Auto-generated method stub
+        Log.v("MediaPlayer", "onCompletion");
+        // ここに再生完了時の処理を追加
+    }
+
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
 
@@ -120,7 +138,7 @@ public class Recognize extends Activity {
             String str2 = results.get(0);
             String regex = "at|ad|@|後|あと([0-9]*)(分|分後|分前|ふん|分で|年)";
             String regex2 = "(at|ad|@|あと|後)([0-9]*)時([0-9]*)(分|分後|分前|ふん|分で|年)";
-            String regex3 = "おきます|起きます|おきまーす|起きまーす|ポケモン|起き|おき|います|今|沖縄|自慢|俺ます";
+            String regex3 = "おきます|起きます|おきまーす|起きまーす|ポケモン|起き|おき|います|今|沖縄|自慢|俺ます|秋まーす|はげまーす|大きいもい";
             String regex4 = "あと(一点|一転|一善|一例|一)";
             Pattern p = Pattern.compile(regex);
             Pattern p2 = Pattern.compile(regex2);
@@ -144,7 +162,9 @@ public class Recognize extends Activity {
             for (int i = 0; i < results.size(); i++) {
 
                 if (m[i].find() && m[i].group(1) != null) {
-                    mp.stop();
+                    /*if(mp.isLooping()){
+                        mp.stop();
+                    }*/
                     init();
                     String matchstr = m[i].group(1);
                     Log.e("TAG@1", matchstr);
@@ -157,8 +177,9 @@ public class Recognize extends Activity {
                     break;
                 } else if (i == results.size() - 1) {
                     if (m2.find()) {
-                        mp = MediaPlayer.create(this, R.raw.sound);
-                        mp.stop();
+                        /*if(mp.isLooping()){
+                            mp.stop();
+                        }*/
                         init();
                         String matchstr2 = m2.group(2);
                         String matchstr3 = m2.group(3);
@@ -175,9 +196,9 @@ public class Recognize extends Activity {
                             break;
                         }
                     } else if (m3.find()) {
-                        mp = MediaPlayer.create(this, R.raw.sound);
-                        mp.stop();
-                        if (sounds == 0) {
+                       // mp.stop();
+                        init();
+                        /*if (sounds == 0) {
                             mps[0].stop();
                         } else if (sounds == 1) {
                             mps[1].stop();
@@ -191,8 +212,7 @@ public class Recognize extends Activity {
                             mps[5].stop();
                         } else if (sounds == 6) {
                             mps[6].stop();
-                        }
-                        //init();
+                        }*/
                         Log.e("TAG@@1", str2);
                         //Day = 1;
                         Intent intent = new Intent(Recognize.this, MainActivity.class);
@@ -200,7 +220,9 @@ public class Recognize extends Activity {
                         startActivity(intent);
                         break;
                     } else if (m4.find()) {
-                        mp.stop();
+                        /*if(mp.isLooping()){
+                            mp.stop();
+                        }*/
                         init();
                         int q = 1;
                         Log.e("1", "ok");
@@ -233,19 +255,22 @@ public class Recognize extends Activity {
                 super.onActivityResult(requestCode, resultCode, data);
     }
 
-            @Override
-            protected void onStop () {
-                super.onStop();
-                mp.stop();
-                init();
-                Log.e("onStop", "ok");
-                finish();
-            }
-            @Override
-            protected void onDestroy () {
-                super.onDestroy();
-                Log.e("onDestroy", "ok");
-                finish();
-            }
+    @Override
+    protected void onStop () {
+        super.onStop();
+        //mp.stop();
+        init();
+        Log.e("onStop", "ok");
+        finish();
+    }
+    @Override
+    protected void onDestroy() {
+        // TODO Auto-generated method stub
+        Log.e("onDestroy", "ok");
+        super.onDestroy();
+
+
+    }
+
 }
 

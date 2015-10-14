@@ -5,13 +5,24 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.util.Log;
 
 public class MyService extends Service {
-    //public static MediaPlayer mp;
     SharedPreferences pref;
     int way;
+
+    final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            Log.i("run", "run");
+            final PowerManager pm = (PowerManager)getSystemService(POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "TimerExample");
+            wakeLock.acquire();
+        }
+    };
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -24,6 +35,9 @@ public class MyService extends Service {
         pref = getSharedPreferences("select", Context.MODE_PRIVATE);
         way = pref.getInt("way", 0);
         Log.e("MyService","ok");
+
+        Log.i("onclick", "onclick");
+        new Handler().postDelayed(runnable, 0);
 
         if(way==2){
             Intent new_intent = new Intent(MyService.this, Calculate.class);
@@ -41,14 +55,5 @@ public class MyService extends Service {
 
         return super.onStartCommand(intent, flags, startId);
     }
-
-   /* @Override
-    public void onDestroy() {
-        super.onDestroy();
-
-        *//*if(mp.isPlaying()){
-            mp.stop();
-        }*//*
-    }*/
 }
 

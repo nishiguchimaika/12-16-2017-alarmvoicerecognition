@@ -8,7 +8,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="式"
         android:id="@+id/textView4"
         android:layout_gravity="center_horizontal"
         android:textSize="45dp"
@@ -18,7 +17,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="答え"
         android:id="@+id/textView"
         android:textSize="60dp"
         android:layout_gravity="center_horizontal"
@@ -202,7 +200,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="正解or間違い"
         android:id="@+id/textView2"
         android:layout_gravity="center_horizontal"
         android:textSize="30dp"
@@ -211,7 +208,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="あと何問"
         android:id="@+id/textView3"
         android:textSize="30dp"
         android:layout_gravity="center_horizontal"

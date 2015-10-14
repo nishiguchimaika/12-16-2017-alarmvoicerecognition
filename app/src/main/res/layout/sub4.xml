@@ -12,15 +12,9 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:background="#c3d1ffdd">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imageView12"
-                android:src="@drawable/hosizora2"
-                android:scaleType="fitXY"
-                android:alpha="0.7"/>
         </LinearLayout>
 
         <LinearLayout
@@ -33,7 +27,8 @@
                 android:id="@+id/header"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:alpha="0.5"
+                android:background="#48a59c"/>
 
         </LinearLayout>
 
@@ -64,39 +59,39 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:padding="10dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="30dp"
                 android:layout_marginLeft="24dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginRight="24dp">
+                android:layout_marginRight="24dp"
+                android:id="@+id/id">
 
                 <CheckBox
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="足し算レベル１"
                     android:id="@+id/checkBox"
-                    android:textColor="#ffffffff"
-                    android:textSize="@dimen/checkbox_text_size"
-                    android:layout_gravity="center_horizontal"/>
+                    android:textColor="#ff3e9e90"
+                    android:checked="false"
+                    android:singleLine="false"
+                    android:layout_gravity="center_horizontal|left"
+                    android:textSize="50dp"/>
 
                 <CheckBox
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="足し算レベル２"
                     android:id="@+id/checkBox2"
-                    android:textColor="#ffffffff"
+                    android:textColor="#ff3e9e90"
                     android:layout_marginTop="8dp"
-                    android:textSize="@dimen/checkbox_text_size"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal|left"
+                    android:textSize="50dp"
+                    />
 
                 <CheckBox
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="足し算レベル３"
                     android:id="@+id/checkBox3"
-                    android:textColor="#ffffffff"
+                    android:textColor="#ff3e9e90"
                     android:layout_marginTop="8dp"
-                    android:textSize="@dimen/checkbox_text_size"
-                    android:layout_gravity="center_horizontal"/>
+                    android:layout_gravity="center_horizontal|left"
+                    android:textSize="50dp"/>
 
             </LinearLayout>
         </LinearLayout>

@@ -1,10 +1,13 @@
 package com.nishiguchimaika.voicerecognition2;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.PowerManager;
 import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 import android.util.Log;
@@ -34,11 +37,25 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
     int[] imageId;
     int[] imagenumber;
     private TextToSpeech mTextToSpeech;
+    private SharedPreferences pref;
+    int lan;
+    final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            Log.i("run", "run");
+            final PowerManager pm = (PowerManager)getSystemService(POWER_SERVICE);
+            PowerManager.WakeLock wakeLock = pm.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP | PowerManager.ON_AFTER_RELEASE, "TimerExample");
+            wakeLock.acquire();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sub2);
+
+        pref = getSharedPreferences("select", Context.MODE_PRIVATE);
+        lan = pref.getInt("language", 0);
 
         mTextToSpeech = new TextToSpeech(this, this);
 
@@ -61,7 +78,7 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
         Log.e("q", String.valueOf(q));
         a = 0;
 
-        final CounterClass timer = new CounterClass(q * 60000, 1000);
+        final CounterClass timer = new CounterClass(q * 6000, 1000);
         if(q != 0){
             timer.start();
         }
@@ -103,7 +120,11 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
 
     @Override
     public void onInit(int status) {
-        mTextToSpeech.setLanguage(Locale.JAPANESE);
+        if(lan == 0){
+            mTextToSpeech.setLanguage(Locale.JAPANESE);
+        }else if(lan == 1){
+            mTextToSpeech.setLanguage(Locale.ENGLISH);
+        }
     }
 
     private void speechText() {
@@ -145,14 +166,15 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
             imagenumber[5] = (int) (millisUntilFinished / 1000 - (10 * imagenumber[2] + imagenumber[3]) * 60 - (10 * imagenumber[0] + imagenumber[1]) * 3600) % 10;
         }
 
-
         @Override
         public void onFinish() {
-                Log.i("音声認識","again");
-                Intent new_intent = new Intent(Timer.this, Recognize.class);
-                a = 1;
-                new_intent.putExtra("again", a);
-                startActivity(new_intent);
+            Log.i("onclick", "onclick");
+            new Handler().postDelayed(runnable, 0);
+            Log.i("音声認識","again");
+            Intent new_intent = new Intent(Timer.this, Recognize.class);
+            a = 1;
+            new_intent.putExtra("again", a);
+            startActivity(new_intent);
         }
     }
  }

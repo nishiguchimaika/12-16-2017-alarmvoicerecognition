@@ -37,6 +37,7 @@ public class SubActivity extends AppCompatActivity {
     CheckBox[] checkBoxes;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
+    int lan;
 
     private void init(){
         checkBoxes = new CheckBox[checkBoxIds.length];
@@ -58,7 +59,7 @@ public class SubActivity extends AppCompatActivity {
         init();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.header);
-        toolbar.setNavigationIcon(R.mipmap.ic_keyboard_backspace_black_24px);
+        toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +72,7 @@ public class SubActivity extends AppCompatActivity {
         editor.putInt("color",0);
         editor.apply();
         editor.putInt("sounds", 0);
+        lan = pref.getInt("language", 0);
         checkBoxes[pref.getInt("position",0)].setChecked(true);
 
         for (int i = 0; i < soundPools.length; i++) {
@@ -82,6 +84,25 @@ public class SubActivity extends AppCompatActivity {
                 }
             });
         }
+
+        if(lan == 0){
+            checkBoxes[0].setText("電話");
+            checkBoxes[1].setText("インターホン");
+            checkBoxes[2].setText("不安な音");
+            checkBoxes[3].setText("女の人の叫び声");
+            checkBoxes[4].setText("パトカー");
+            checkBoxes[5].setText("救急車のサイレン");
+            checkBoxes[6].setText("拳銃");
+        }else if(lan == 1){
+            checkBoxes[0].setText("Phone");
+            checkBoxes[1].setText("Interphone");
+            checkBoxes[2].setText("Horror");
+            checkBoxes[3].setText("Screaming of woman");
+            checkBoxes[4].setText("Patrol car");
+            checkBoxes[5].setText("Ambulance siren");
+            checkBoxes[6].setText("Handgun");
+        }
+
     }
 
     public void startMainActivity() {

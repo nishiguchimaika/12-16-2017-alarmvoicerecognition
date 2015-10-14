@@ -26,10 +26,11 @@ public class Calculate extends AppCompatActivity {
     SoundPool soundPool;
     int SoundResource = R.raw.soundd4;
     int SoundId;
-    SharedPreferences pref;
+    private SharedPreferences pref;
     int level;
+    int lan;
 
-    private void inIt(){
+    private void init(){
         if(level==0) {
             Random random = new Random();
             int index = random.nextInt(20);
@@ -83,14 +84,28 @@ public class Calculate extends AppCompatActivity {
         mp.start();
         mp.setLooping(true);
         pref = getSharedPreferences("select", Context.MODE_PRIVATE);
+        lan = pref.getInt("language", 0);
         level = pref.getInt("level", 0);
-        inIt();
+        init();
+        if(lan == 0){
+            textView.setText("答え");
+            textView2.setText("正解 or 間違い");
+            textView3.setText("あと何問");
+        }else if(lan == 1){
+            textView.setText("Answer");
+            textView2.setText("True or False");
+            textView3.setText("Remaining Questions");
+        }
     }
 
     public void go(View v){
         if(correct == answer){
             soundPool.stop(SoundId);
-            textView2.setText("正解！");
+            if(lan == 0){
+                textView2.setText("正解！");
+            }else if(lan == 1){
+                textView2.setText("True!");
+            }
             number = number + 1;
             if(number == 15){
                 mp.stop();
@@ -100,57 +115,65 @@ public class Calculate extends AppCompatActivity {
                 soundPool.release();
             }
         }else{
-            textView2.setText("間違い！");
+            if(lan == 0){
+                textView2.setText("間違い！");
+            }else if(lan == 1){
+                textView2.setText("False!");
+            }
             number = 0;
             soundPool.play(SoundId,1,1,0,0,0);
         }
-        textView3.setText("あと"+(15-number)+"問！");
-        inIt();
+        if(lan == 0){
+            textView3.setText("あと"+(15-number)+"問！");
+        }else if(lan == 1){
+            textView3.setText((15-number)+" more!");
+        }
+        init();
     }
 
     public void one(View v){
         answer = answer*10+1;
-        textView.setText(answer+"");
+        textView.setText(String.valueOf(answer));
     }
     public void two(View v){
         answer = answer*10+2;
-        textView.setText(answer+"");
+        textView.setText(String.valueOf(answer));
     }
     public void three(View v){
         answer = answer*10+3;
-        textView.setText(answer+"");
+        textView.setText(String.valueOf(answer));
     }
     public void four(View v){
         answer = answer*10+4;
-        textView.setText(answer+"");
+        textView.setText(String.valueOf(answer));
     }
     public void five(View v){
         answer = answer*10+5;
-        textView.setText(answer+"");
+        textView.setText(String.valueOf(answer));
     }
     public void six(View v){
         answer = answer*10+6;
-        textView.setText(answer+"");
+        textView.setText(String.valueOf(answer));
     }
     public void seven(View v){
         answer = answer*10+7;
-        textView.setText(answer+"");
+        textView.setText(String.valueOf(answer));
     }
     public void eight(View v){
         answer = answer*10+8;
-        textView.setText(answer+"");
+        textView.setText(String.valueOf(answer));
     }
     public void nine(View v){
         answer = answer*10+9;
-        textView.setText(answer+"");
+        textView.setText(String.valueOf(answer));
     }
     public void zero(View v){
         answer = answer*10;
-        textView.setText(answer+"");
+        textView.setText(String.valueOf(answer));
     }
     public void clear(View v){
         answer = 0;
-        textView.setText(answer+"");
+        textView.setText(String.valueOf(answer));
     }
 
 }

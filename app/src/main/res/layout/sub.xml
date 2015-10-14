@@ -13,15 +13,9 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_height="fill_parent"
+            android:background="#c3d1ffdd">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/imageView11"
-                android:src="@drawable/hosizora2"
-                android:scaleType="fitXY"
-                android:alpha="0.7"/>
         </LinearLayout>
 
         <LinearLayout
@@ -39,7 +33,8 @@
                 class="android.support.v7.widget.Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
+                android:alpha="0.5"
+                android:background="#48a59c"/>
         </LinearLayout>
 
         <LinearLayout
@@ -72,38 +67,33 @@
                 android:orientation="vertical"
                 android:layout_alignParentBottom="true"
                 android:padding="10dp"
-                android:layout_marginBottom="24dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp"
-                android:layout_marginTop="24dp"
                 android:layout_gravity="bottom"
-                >
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginRight="24dp">
 
                 <CheckBox
                     android:id="@+id/checkBox1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="電話"
                     android:textSize="@dimen/checkbox_text_size"
-                    android:textColor="#ffffffff"/>
+                    android:textColor="#ff3e9e90"/>
 
                 <CheckBox
                     android:id="@+id/checkBox2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="インターホン"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
-                    android:textColor="#ffffffff"/>
+                    android:textColor="#ff3e9e90"/>
 
                 <CheckBox
                     android:id="@+id/checkBox3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="不安な音"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
-                    android:textColor="#ffffffff"/>
+                    android:textColor="#ff3e9e90"/>
 
                 <CheckBox
                     android:id="@+id/checkBox4"
@@ -112,42 +102,37 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
-                    android:text="女の人の叫び声"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
-                    android:textColor="#ffffffff"/>
+                    android:textColor="#ff3e9e90"/>
 
                 <CheckBox
                     android:id="@+id/checkBox5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="クラクション"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
-                    android:textColor="#ffffffff"/>
+                    android:textColor="#ff3e9e90"/>
 
                 <CheckBox
                     android:id="@+id/checkBox6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="救急車のサイレン"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
-                    android:textColor="#ffffffff"/>
+                    android:textColor="#ff3e9e90"/>
 
                 <CheckBox
                     android:id="@+id/checkBox7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="拳銃"
                     android:textSize="@dimen/checkbox_text_size"
                     android:layout_marginTop="8dp"
-                    android:textColor="#ffffffff"
+                    android:textColor="#ff3e9e90"
                     />
             </LinearLayout>
         </LinearLayout>
 
     </FrameLayout>
-
 
 </LinearLayout>

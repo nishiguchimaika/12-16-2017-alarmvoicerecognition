@@ -23,6 +23,7 @@ public class SubActivity2 extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     ImageView imageView;
     int pic;
+    int lan;
 
     private void init(){
         checkBoxes = new CheckBox[checkBoxIds.length];
@@ -44,7 +45,7 @@ public class SubActivity2 extends AppCompatActivity {
         imageView = (ImageView) findViewById(R.id.imageView);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.header);
-        toolbar.setNavigationIcon(R.mipmap.ic_keyboard_backspace_black_24px);
+        toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +59,7 @@ public class SubActivity2 extends AppCompatActivity {
         editor.apply();
         editor.putInt("level", 0);
         pic = pref.getInt("level", 0);
+        lan = pref.getInt("language", 0);
         checkBoxes[pref.getInt("position2",0)].setChecked(true);
         if(pic==0){
             imageView.setImageResource(R.drawable.calculate);
@@ -65,6 +67,16 @@ public class SubActivity2 extends AppCompatActivity {
             imageView.setImageResource(R.drawable.calculatee2);
         }else if(pic==2){
             imageView.setImageResource(R.drawable.calculatee3);
+        }
+
+        if(lan == 0){
+            checkBoxes[0].setText("レベル１");
+            checkBoxes[1].setText("レベル２");
+            checkBoxes[2].setText("レベル３");
+        }else if(lan == 1){
+            checkBoxes[0].setText("Level 1");
+            checkBoxes[1].setText("Level２");
+            checkBoxes[2].setText("Level３");
         }
     }
 

@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
     int[] imageId;
     int[] imageNumber;
     ImageButton startBtn;
-    ImageButton stopBtn;
     ImageButton soundBtn;
     ImageButton mathBtn;
     ImageButton setBtn;
@@ -60,13 +59,12 @@ public class MainActivity extends AppCompatActivity {
         Log.e("color2",String.valueOf(color2));
         day = pref.getInt("day", 0);
 
+
         startBtn = (ImageButton) findViewById(R.id.start);
-        stopBtn = (ImageButton) findViewById(R.id.stop);
         soundBtn = (ImageButton) findViewById(R.id.sound);
         mathBtn = (ImageButton) findViewById(R.id.math);
         setBtn = (ImageButton) findViewById(R.id.setting);
         startBtn.setOnClickListener(myAlarmListener);
-        stopBtn.setOnClickListener(myAlarmListener);
         soundBtn.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 startSubActivity();
@@ -95,45 +93,47 @@ public class MainActivity extends AppCompatActivity {
 
             switch (v.getId()) {
                 case R.id.start:
-                    editor.putInt("color2",0);
-                    editor.apply();
-                    startBtn.setImageResource(imageId[0]);
-                    stopBtn.setImageResource(imageId[3]);
-                    int hour = tPicker.getCurrentHour();
-                    int minute = tPicker.getCurrentMinute();
-                    Calendar startTime = Calendar.getInstance();
-                    startTime.setTimeInMillis(System.currentTimeMillis());
-                    startTime.set(Calendar.HOUR_OF_DAY, hour);
-                    startTime.set(Calendar.MINUTE, minute);
-                    startTime.set(Calendar.SECOND, 0);
-                    long alarmStartTime = startTime.getTimeInMillis();
-                    Log.e("startTime",String.valueOf(startTime));
+                    if(color2 == 1) {
+                        editor.putInt("color2", 0);
+                        color2 = 0;
+                        editor.apply();
+                        startBtn.setImageResource(imageId[0]);
+                        int hour = tPicker.getCurrentHour();
+                        int minute = tPicker.getCurrentMinute();
+                        Calendar startTime = Calendar.getInstance();
+                        startTime.setTimeInMillis(System.currentTimeMillis());
+                        startTime.set(Calendar.HOUR_OF_DAY, hour);
+                        startTime.set(Calendar.MINUTE, minute);
+                        startTime.set(Calendar.SECOND, 0);
+                        long alarmStartTime = startTime.getTimeInMillis();
+                        Log.e("startTime", String.valueOf(startTime));
 
-                    if(startTime.getTimeInMillis() < System.currentTimeMillis()){
-                        startTime.add(Calendar.DAY_OF_YEAR,1);
-                    }else if(day == 1){
-                        Log.e("day","1");
-                        startTime.add(Calendar.DAY_OF_YEAR,1);
+                        if (startTime.getTimeInMillis() < System.currentTimeMillis()) {
+                            Log.e("millis", "1");
+                            startTime.add(Calendar.DAY_OF_YEAR, 1);
+                        } else if (day == 1) {
+                            Log.e("day", "1");
+                            startTime.add(Calendar.DAY_OF_YEAR, 1);
+                        }
+
+                        alarm.setRepeating(
+                                AlarmManager.RTC_WAKEUP,
+                                alarmStartTime,
+                                AlarmManager.INTERVAL_DAY,
+                                alarmIntent
+                        );
+                        Toast.makeText(MainActivity.this, "通知セット完了!", Toast.LENGTH_SHORT).show();
+                        notificationId++;
+                        break;
+                    }else if(color2 == 0){
+                        editor.putInt("color2",1);
+                        color2 = 1;
+                        editor.apply();
+                        startBtn.setImageResource(imageId[1]);
+                        alarm.cancel(alarmIntent);
+                        Toast.makeText(MainActivity.this, "通知をキャンセルしました!", Toast.LENGTH_SHORT).show();
+                        break;
                     }
-
-                    alarm.setRepeating(
-                            AlarmManager.RTC_WAKEUP,
-                            alarmStartTime,
-                            AlarmManager.INTERVAL_DAY,
-                            alarmIntent
-
-                    );
-                    Toast.makeText(MainActivity.this, "通知セット完了!", Toast.LENGTH_SHORT).show();
-                    notificationId++;
-                    break;
-                case R.id.stop:
-                    editor.putInt("color2",1);
-                    editor.apply();
-                    startBtn.setImageResource(imageId[1]);
-                    stopBtn.setImageResource(imageId[2]);
-                    alarm.cancel(alarmIntent);
-                    Toast.makeText(MainActivity.this, "通知をキャンセルしました!", Toast.LENGTH_SHORT).show();
-                    break;
             }
         }
         /*private PendingIntent getPendingIntent() {
@@ -148,7 +148,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         startBtn.setImageResource(imageId[1]);
-        stopBtn.setImageResource(imageId[2]);
         soundBtn.setImageResource(imageId[4]);
         mathBtn.setImageResource(imageId[7]);
         if(color == 0){
@@ -158,11 +157,9 @@ public class MainActivity extends AppCompatActivity {
             if (color2 == 0) {
                 Log.i("color2", "0");
                 startBtn.setImageResource(imageId[0]);
-                stopBtn.setImageResource(imageId[3]);
             } else if (color2 == 1) {
                 Log.i("color2", "1");
                 startBtn.setImageResource(imageId[1]);
-                stopBtn.setImageResource(imageId[2]);
             }
         }else if(color == 1) {
             Log.i("color=", "1");
@@ -171,11 +168,9 @@ public class MainActivity extends AppCompatActivity {
             if (color2 == 0) {
                 Log.i("color2", "0");
                 startBtn.setImageResource(imageId[0]);
-                stopBtn.setImageResource(imageId[3]);
             } else if (color2 == 1) {
                 Log.i("color2", "1");
                 startBtn.setImageResource(imageId[1]);
-                stopBtn.setImageResource(imageId[2]);
             }
         }
     }
@@ -189,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent2, 0);
     }
     private void startSubActivity3(){
-        Intent intent3 = new Intent(this, SetActivity.class);
+        Intent intent3 = new Intent(this, Language.class);
         startActivityForResult(intent3, 0);
     }
 
