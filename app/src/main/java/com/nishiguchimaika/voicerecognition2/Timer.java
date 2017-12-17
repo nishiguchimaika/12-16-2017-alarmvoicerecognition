@@ -12,7 +12,7 @@ import android.speech.tts.TextToSpeech;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import java.util.Calendar;
@@ -20,12 +20,14 @@ import java.util.Locale;
 
 public class Timer extends Activity implements TextToSpeech.OnInitListener {
 
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
     Calendar calendar = Calendar.getInstance();
     int hour = calendar.get(Calendar.HOUR_OF_DAY);
     int minute = calendar.get(Calendar.MINUTE);
-    ImageButton btnStop;
+    Button btnStop;
     int q;
-    int a;
+    int again;
     ImageView imageView1;
     ImageView imageView2;
     ImageView imageView3;
@@ -36,9 +38,8 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
     ImageView imageView8;
     int[] imageId;
     int[] imagenumber;
-    private TextToSpeech mTextToSpeech;
-    private SharedPreferences pref;
     int lan;
+    private TextToSpeech mTextToSpeech;
     final Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -55,10 +56,8 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
         setContentView(R.layout.sub2);
 
         pref = getSharedPreferences("select", Context.MODE_PRIVATE);
-        lan = pref.getInt("language", 0);
-
+        editor = pref.edit();
         mTextToSpeech = new TextToSpeech(this, this);
-
         imageId = new int[11];
         imageId[0] = R.drawable.zero;
         imageId[1] = R.drawable.one;
@@ -76,15 +75,13 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
         Intent timerIntent = getIntent();
         q = timerIntent.getIntExtra("time", 0);
         Log.e("q", String.valueOf(q));
-        a = 0;
-
-        final CounterClass timer = new CounterClass(q * 6000, 1000);
+        again = 0;
+        lan = 0;
+        final CounterClass timer = new CounterClass(q * 60000, 1000);
         if(q != 0){
             timer.start();
         }
-
-        btnStop = (ImageButton) findViewById(R.id.btnStop);
-
+        btnStop = (Button) findViewById(R.id.btnStop);
         imageView1 = (ImageView) findViewById(R.id.imageView1);
         imageView2 = (ImageView) findViewById(R.id.imageView2);
         imageView3 = (ImageView) findViewById(R.id.imageView3);
@@ -98,6 +95,8 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
             @Override
             public void onClick(View v) {
                 timer.cancel();
+                editor.putInt("ala", 1);
+                editor.apply();
                 Intent intent = new Intent(Timer.this, MainActivity.class);
                 startActivity(intent);
         }
@@ -120,22 +119,35 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
 
     @Override
     public void onInit(int status) {
-        if(lan == 0){
+        if(mTextToSpeech.isLanguageAvailable(Locale.JAPANESE) == TextToSpeech.LANG_AVAILABLE) {
             mTextToSpeech.setLanguage(Locale.JAPANESE);
-        }else if(lan == 1){
+            lan = 0;
+            Log.v("lan","0");
+        } else {
             mTextToSpeech.setLanguage(Locale.ENGLISH);
+            lan = 1;
+            Log.v("lan","1");
         }
     }
 
     private void speechText() {
-        if (!TextUtils.isEmpty((hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "o'clock" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) % 60 + "minutes")) {
-            if (mTextToSpeech.isSpeaking()) {
-                mTextToSpeech.stop();
+        if (lan == 0) {
+            if (!TextUtils.isEmpty((hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "じ" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3] + 1) % 60 + "ふんに起こします")) {
+                if (mTextToSpeech.isSpeaking()) {
+                    mTextToSpeech.stop();
+                }
+                Log.d("speechText", (hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "じ" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3] + 1) % 60 + "ふんに起こします");
+                mTextToSpeech.speak((hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "じ" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3] + 1) % 60 + "ふんに起こします", TextToSpeech.QUEUE_FLUSH, null);
             }
-           /* HashMap<String, String> map = new HashMap<String, String>();
-            map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "messageID");*/
-            Log.d("speechText", (hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "o'clock" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) % 60 + "minutes");
-            mTextToSpeech.speak((hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "じ" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]+1) % 60 + "ふんに起こします", TextToSpeech.QUEUE_FLUSH, null);
+        } else if (lan == 1) {
+            if (!TextUtils.isEmpty((hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "o'clock" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3] + 1) % 60 + "minute")) {
+                if (mTextToSpeech.isSpeaking()) {
+                    mTextToSpeech.stop();
+                }
+                Log.d("speechText", (hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "o'clock" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3] + 1) % 60 + "minute");
+                mTextToSpeech.speak((hour + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3]) / 60) + "o'clock" + (minute + (imagenumber[0] * 10 + imagenumber[1]) * 60 + imagenumber[2] * 10 + imagenumber[3] + 1) % 60 + "minute", TextToSpeech.QUEUE_FLUSH, null);
+
+            }
         }
     }
 
@@ -168,12 +180,10 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
 
         @Override
         public void onFinish() {
-            Log.i("onclick", "onclick");
             new Handler().postDelayed(runnable, 0);
-            Log.i("音声認識","again");
             Intent new_intent = new Intent(Timer.this, Recognize.class);
-            a = 1;
-            new_intent.putExtra("again", a);
+            again = 1;
+            new_intent.putExtra("again", again);
             startActivity(new_intent);
         }
     }

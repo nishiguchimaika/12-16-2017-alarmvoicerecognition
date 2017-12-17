@@ -9,7 +9,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 
 public class SubActivity2 extends AppCompatActivity {
 
@@ -21,9 +20,7 @@ public class SubActivity2 extends AppCompatActivity {
     CheckBox[] checkBoxes;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-    ImageView imageView;
     int pic;
-    int lan;
 
     private void init(){
         checkBoxes = new CheckBox[checkBoxIds.length];
@@ -42,8 +39,6 @@ public class SubActivity2 extends AppCompatActivity {
 
         init();
 
-        imageView = (ImageView) findViewById(R.id.imageView);
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.header);
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -55,29 +50,11 @@ public class SubActivity2 extends AppCompatActivity {
 
         pref = getSharedPreferences("select", Context.MODE_PRIVATE);
         editor = pref.edit();
-        editor.putInt("color",1);
+        editor.putInt("sorm",1);
         editor.apply();
         editor.putInt("level", 0);
         pic = pref.getInt("level", 0);
-        lan = pref.getInt("language", 0);
         checkBoxes[pref.getInt("position2",0)].setChecked(true);
-        if(pic==0){
-            imageView.setImageResource(R.drawable.calculate);
-        }else if(pic==1){
-            imageView.setImageResource(R.drawable.calculatee2);
-        }else if(pic==2){
-            imageView.setImageResource(R.drawable.calculatee3);
-        }
-
-        if(lan == 0){
-            checkBoxes[0].setText("レベル１");
-            checkBoxes[1].setText("レベル２");
-            checkBoxes[2].setText("レベル３");
-        }else if(lan == 1){
-            checkBoxes[0].setText("Level 1");
-            checkBoxes[1].setText("Level２");
-            checkBoxes[2].setText("Level３");
-        }
     }
 
     private View.OnClickListener checkClickListener = new View.OnClickListener() {
@@ -89,30 +66,7 @@ public class SubActivity2 extends AppCompatActivity {
             }
             setCheck(index);
             checkBoxes[index].setChecked(true);
-            if(index == 0){
-                imageView.setImageResource(R.drawable.calculate);
-            }else if(index == 1){
-                imageView.setImageResource(R.drawable.calculatee2);
-            }else if(index == 2){
-                imageView.setImageResource(R.drawable.calculatee3);
-            }
-            /*checkBoxes[index].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    // TODO Auto-generated method stub
-                    // チェック状態が変更された時の処理を記述
-                    if(index == 0){
-                        imageView.setImageResource(R.drawable.calculate);
-                    }else if(index == 1){
-                        imageView.setImageResource(R.drawable.calculatee2);
-                    }else if(index == 2){
-                        imageView.setImageResource(R.drawable.calculatee3);
-                    }
-                }
-            });*/
             editor.putInt("level", index);
-            editor.apply();
-            editor.putInt("way",2);
             editor.apply();
         }
     };

@@ -12,7 +12,7 @@ import android.util.Log;
 
 public class MyService extends Service {
     SharedPreferences pref;
-    int way;
+    int sorm;
 
     final Runnable runnable = new Runnable() {
         @Override
@@ -33,24 +33,21 @@ public class MyService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         pref = getSharedPreferences("select", Context.MODE_PRIVATE);
-        way = pref.getInt("way", 0);
+        sorm = pref.getInt("sorm", 0);
         Log.e("MyService","ok");
 
-        Log.i("onclick", "onclick");
         new Handler().postDelayed(runnable, 0);
 
-        if(way==2){
+        if(sorm == 1){
             Intent new_intent = new Intent(MyService.this, Calculate.class);
             new_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(new_intent);
-        }else if(way==0) {
+            Log.e("sorm","1");
+        }else if(sorm == 0) {
             Intent new_intent = new Intent(MyService.this, Recognize.class);
             new_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(new_intent);
-            Log.e("way","0");
-            /*mp = MediaPlayer.create(this, R.raw.sound);
-            mp.start();
-*/
+            Log.e("sorm","0");
         }
 
         return super.onStartCommand(intent, flags, startId);

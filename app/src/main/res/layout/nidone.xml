@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    >
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/back2">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top">
+
+            <view
+                class="android.support.v7.widget.Toolbar"
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="55dp">
+
+            <LinearLayout
+                android:id="@+id/li"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/icon2"
+                    android:layout_gravity="top"
+                    android:id="@+id/imageView9"/>
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:background="@android:color/white"
+                    android:rotation="45"
+                    android:layout_gravity="center_vertical"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/talking"
+                    android:padding="8dp"
+                    android:text="簡単に思い通りに二度寝ができ、しかも「うっかり寝過ごした」が無くなる機能です！"
+                    android:textColor="@android:color/black"
+                    android:textSize="17dp"
+                    android:id="@+id/id"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="24dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="-6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/talk"
+                        android:padding="8dp"
+                        android:text="まず寝る前に、二度寝した後に鳴らす音を設定してください。"
+                        android:textColor="@android:color/black"
+                        android:textSize="17dp"
+                        android:id="@+id/id2"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="-6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/talk"
+                        android:padding="8dp"
+                        android:text="アラームが鳴ったら「あと〜分」と言ってください。"
+                        android:textColor="#ffff300d"
+                        android:textSize="17dp"
+                        android:id="@+id/id3"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="-6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/talk"
+                        android:padding="8dp"
+                        android:text="すると、二度寝(スヌーズ)を自動で設定できます！スマホに一切触らなくてOK！"
+                        android:textColor="@android:color/black"
+                        android:textSize="17dp"
+                        android:id="@+id/id4"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="-6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/talk"
+                        android:padding="8dp"
+                        android:text="次に起こす時刻をスマホが読み上げます！"
+                        android:textColor="@android:color/black"
+                        android:textSize="17dp"
+                        android:id="@+id/id5"
+                        />
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+</LinearLayout>
+

@@ -8,49 +8,35 @@
 
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="#c3d1ffdd">
-
-        </LinearLayout>
+        android:layout_height="fill_parent"
+        android:background="@drawable/back2">
 
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/imageView10"/>
-
             <view
                 android:id="@+id/header"
                 class="android.support.v7.widget.Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:alpha="0.5"
-                android:background="#48a59c"/>
+                />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp">
+            android:layout_width=" 150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="55dp"
+            android:layout_gravity="center_horizontal">
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:id="@+id/imageView"
-                android:src="@mipmap/ic_queue_music"
-                android:layout_alignParentTop="true"
-                android:scaleType="fitCenter"
-                />
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:id="@+id/imageView10"
+                android:src="@drawable/sound2"
+                android:scaleType="fitXY"/>
         </LinearLayout>
 
         <LinearLayout
@@ -59,79 +45,101 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom">
 
-            <LinearLayout
-                android:id="@+id/id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:orientation="vertical"
-                android:layout_alignParentBottom="true"
-                android:padding="10dp"
-                android:layout_gravity="bottom"
-                android:layout_marginBottom="30dp"
-                android:layout_marginLeft="24dp"
-                android:layout_marginRight="24dp">
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
 
-                <CheckBox
-                    android:id="@+id/checkBox1"
+                <LinearLayout
+                    android:id="@+id/id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/checkbox_text_size"
-                    android:textColor="#ff3e9e90"/>
-
-                <CheckBox
-                    android:id="@+id/checkBox2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/checkbox_text_size"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#ff3e9e90"/>
-
-                <CheckBox
-                    android:id="@+id/checkBox3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/checkbox_text_size"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#ff3e9e90"/>
-
-                <CheckBox
-                    android:id="@+id/checkBox4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="vertical"
                     android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:textSize="@dimen/checkbox_text_size"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#ff3e9e90"/>
+                    android:padding="10dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginRight="24dp">
 
-                <CheckBox
-                    android:id="@+id/checkBox5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/checkbox_text_size"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#ff3e9e90"/>
+                    <CheckBox
+                        android:id="@+id/checkBox1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/checkbox_text_size"
+                        android:textColor="#ffffff"
+                        android:text="電話"/>
 
-                <CheckBox
-                    android:id="@+id/checkBox6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/checkbox_text_size"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#ff3e9e90"/>
+                    <CheckBox
+                        android:id="@+id/checkBox2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/checkbox_text_size"
+                        android:layout_marginTop="8dp"
+                        android:textColor="#ffffff"
+                        android:text="インターホン"/>
 
-                <CheckBox
-                    android:id="@+id/checkBox7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/checkbox_text_size"
-                    android:layout_marginTop="8dp"
-                    android:textColor="#ff3e9e90"
-                    />
-            </LinearLayout>
+                    <CheckBox
+                        android:id="@+id/checkBox3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/checkbox_text_size"
+                        android:layout_marginTop="8dp"
+                        android:textColor="#ffffff"
+                        android:text="不安な音"/>
+
+                    <CheckBox
+                        android:id="@+id/checkBox4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:textSize="@dimen/checkbox_text_size"
+                        android:layout_marginTop="8dp"
+                        android:textColor="#ffffff"
+                        android:text="女の人の叫び声"/>
+
+                    <CheckBox
+                        android:id="@+id/checkBox5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/checkbox_text_size"
+                        android:layout_marginTop="8dp"
+                        android:textColor="#ffffff"
+                        android:text="クラクション"/>
+
+                    <CheckBox
+                        android:id="@+id/checkBox6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/checkbox_text_size"
+                        android:layout_marginTop="8dp"
+                        android:textColor="#ffffff"
+                        android:text="救急車のサイレン"/>
+
+                    <CheckBox
+                        android:id="@+id/checkBox7"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/checkbox_text_size"
+                        android:layout_marginTop="8dp"
+                        android:textColor="#ffffff"
+                        android:text="拳銃"/>
+
+                </LinearLayout>
+
+            </FrameLayout>
+
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView12"
+            android:alpha="0.2"
+            android:src="@drawable/ki"
+            android:layout_gravity="center"/>
 
     </FrameLayout>
 

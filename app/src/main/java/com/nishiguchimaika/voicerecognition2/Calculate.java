@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -26,9 +27,9 @@ public class Calculate extends AppCompatActivity {
     SoundPool soundPool;
     int SoundResource = R.raw.soundd4;
     int SoundId;
-    private SharedPreferences pref;
+    SharedPreferences pref;
+    SharedPreferences.Editor editor;
     int level;
-    int lan;
 
     private void init(){
         if(level==0) {
@@ -36,28 +37,28 @@ public class Calculate extends AppCompatActivity {
             int index = random.nextInt(20);
             Random random2 = new Random();
             int index2 = random2.nextInt(20);
-            textView4.setText(index + "+" + index2);
+            textView4.setText(index + "+" + index2 + "=");
             correct = index + index2;
             answer = 0;
-            textView.setText(answer + "");
+            textView.setText(String.valueOf(answer));
         }else if(level==1){
             Random random = new Random();
             int index = random.nextInt(70);
             Random random2 = new Random();
             int index2 = random2.nextInt(70);
-            textView4.setText(index + "+" + index2);
+            textView4.setText(index + "+" + index2 + "=");
             correct = index + index2;
             answer = 0;
-            textView.setText(answer + "");
+            textView.setText(String.valueOf(answer));
         }else if(level==2){
             Random random = new Random();
             int index = random.nextInt(150);
             Random random2 = new Random();
             int index2 = random2.nextInt(150);
-            textView4.setText(index + "+" + index2);
+            textView4.setText(index + "+" + index2 + "=");
             correct = index + index2;
             answer = 0;
-            textView.setText(answer + "");
+            textView.setText(String.valueOf(answer));
         }
     }
 
@@ -74,6 +75,11 @@ public class Calculate extends AppCompatActivity {
         correct = 0;
         number = 0;
         mp = MediaPlayer.create(this,R.raw.sound);
+        mp.setVolume(150.0f,150.0f);
+        AudioManager manager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        int vol = manager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        manager.setStreamVolume(AudioManager.STREAM_MUSIC, vol/2,0);
+
         soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
         SoundId = soundPool.load(this,SoundResource, 1);
         soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener(){
@@ -84,50 +90,32 @@ public class Calculate extends AppCompatActivity {
         mp.start();
         mp.setLooping(true);
         pref = getSharedPreferences("select", Context.MODE_PRIVATE);
-        lan = pref.getInt("language", 0);
+        editor = pref.edit();
         level = pref.getInt("level", 0);
         init();
-        if(lan == 0){
-            textView.setText("答え");
-            textView2.setText("正解 or 間違い");
-            textView3.setText("あと何問");
-        }else if(lan == 1){
-            textView.setText("Answer");
-            textView2.setText("True or False");
-            textView3.setText("Remaining Questions");
-        }
     }
 
     public void go(View v){
         if(correct == answer){
             soundPool.stop(SoundId);
-            if(lan == 0){
-                textView2.setText("正解！");
-            }else if(lan == 1){
-                textView2.setText("True!");
-            }
+            textView2.setText("正解！");
             number = number + 1;
             if(number == 15){
                 mp.stop();
+                mp.release();
+                editor.putInt("ala", 1);
+                editor.apply();
                 Intent intent = new Intent(Calculate.this, MainActivity.class);
                 startActivity(intent);
                 soundPool.unload(SoundId);
                 soundPool.release();
             }
         }else{
-            if(lan == 0){
-                textView2.setText("間違い！");
-            }else if(lan == 1){
-                textView2.setText("False!");
-            }
+            textView2.setText("間違い！");
             number = 0;
             soundPool.play(SoundId,1,1,0,0,0);
         }
-        if(lan == 0){
-            textView3.setText("あと"+(15-number)+"問！");
-        }else if(lan == 1){
-            textView3.setText((15-number)+" more!");
-        }
+        textView3.setText("あと"+(15-number)+"問！");
         init();
     }
 
@@ -176,4 +164,15 @@ public class Calculate extends AppCompatActivity {
         textView.setText(String.valueOf(answer));
     }
 
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.e("CalculateStop", "okay");
+    }
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.e("CalculateDestroy", "okay");
+    }
 }

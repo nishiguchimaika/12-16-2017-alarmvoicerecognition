@@ -21,8 +21,8 @@ public class SubActivity extends AppCompatActivity {
             R.raw.soundd4,
             R.raw.sound11,
             R.raw.sound8,
-            R.raw.sound10};
-
+            R.raw.sound10
+    };
     private final int[] checkBoxIds = {
             R.id.checkBox1,
             R.id.checkBox2,
@@ -30,15 +30,13 @@ public class SubActivity extends AppCompatActivity {
             R.id.checkBox4,
             R.id.checkBox5,
             R.id.checkBox6,
-            R.id.checkBox7};
-
+            R.id.checkBox7
+    };
     SoundPool[] soundPools;
     int[] soundPoolIds;
     CheckBox[] checkBoxes;
     private SharedPreferences pref;
     private SharedPreferences.Editor editor;
-    int lan;
-
     private void init(){
         checkBoxes = new CheckBox[checkBoxIds.length];
         soundPools = new SoundPool[soundResourceIds.length];
@@ -57,7 +55,6 @@ public class SubActivity extends AppCompatActivity {
         setContentView(R.layout.sub);
 
         init();
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.header);
         toolbar.setNavigationIcon(R.mipmap.back);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -66,13 +63,11 @@ public class SubActivity extends AppCompatActivity {
                 startMainActivity();
             }
         });
-
         pref = getSharedPreferences("select", Context.MODE_PRIVATE);
         editor = pref.edit();
-        editor.putInt("color",0);
+        editor.putInt("sorm",0);
         editor.apply();
         editor.putInt("sounds", 0);
-        lan = pref.getInt("language", 0);
         checkBoxes[pref.getInt("position",0)].setChecked(true);
 
         for (int i = 0; i < soundPools.length; i++) {
@@ -84,28 +79,10 @@ public class SubActivity extends AppCompatActivity {
                 }
             });
         }
-
-        if(lan == 0){
-            checkBoxes[0].setText("電話");
-            checkBoxes[1].setText("インターホン");
-            checkBoxes[2].setText("不安な音");
-            checkBoxes[3].setText("女の人の叫び声");
-            checkBoxes[4].setText("パトカー");
-            checkBoxes[5].setText("救急車のサイレン");
-            checkBoxes[6].setText("拳銃");
-        }else if(lan == 1){
-            checkBoxes[0].setText("Phone");
-            checkBoxes[1].setText("Interphone");
-            checkBoxes[2].setText("Horror");
-            checkBoxes[3].setText("Screaming of woman");
-            checkBoxes[4].setText("Patrol car");
-            checkBoxes[5].setText("Ambulance siren");
-            checkBoxes[6].setText("Handgun");
-        }
-
     }
 
     public void startMainActivity() {
+        //「戻る」が押されたら
         for (int i = 0; i < soundPools.length; i++) {
             soundPools[i].stop(soundPoolIds[i]);
             soundPools[i].unload(soundPoolIds[i]);
@@ -125,8 +102,6 @@ public class SubActivity extends AppCompatActivity {
             }
             setCheck(index);
             checkBoxes[index].setChecked(true);
-            editor.putInt("way",0);
-            editor.apply();
             soundPools[index].play(soundPoolIds[index],1,1,0,0,0);
             editor.putInt("sounds", index);
             editor.apply();

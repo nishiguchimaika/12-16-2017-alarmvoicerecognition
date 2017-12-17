@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:id="@+id/id">
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/back2">
+
+        <!--<view
+            android:id="@+id/header"
+            class="android.support.v7.widget.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />-->
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="機能紹介"
+            android:id="@+id/textView8"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="55dp"
+            android:textColor="#ffffff"
+            android:textSize="36dp"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/sound"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/sound2"
+                    android:scaleType="fitCenter"
+                    android:adjustViewBounds="true"
+                    android:padding="5dp"
+                    android:background="@drawable/start"
+                    android:layout_gravity="center_horizontal|left"
+                    android:layout_marginLeft="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="二度寝機能"
+                    android:id="@+id/textView5"
+                    android:textColor="#ffffffff"
+                    android:textSize="23dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <ImageButton
+
+                    android:id="@+id/math"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/plus"
+                    android:padding="5dp"
+
+                    android:background="@drawable/start"
+                    android:layout_marginLeft="8dp"
+                    android:nestedScrollingEnabled="false"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="無理やり\n目覚まし機能"
+                    android:id="@+id/textView6"
+                    android:textColor="#ffffffff"
+                    android:textSize="23dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="4dp"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ki"
+            android:alpha="0.2"/>
+    </FrameLayout>
+
+</LinearLayout>

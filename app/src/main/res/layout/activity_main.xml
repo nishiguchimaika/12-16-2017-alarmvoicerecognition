@@ -7,26 +7,8 @@
 
     <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#c3eda0ff">
-
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:id="@+id/imageView11"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/kirinuki"
-                android:alpha="0.5"
-                android:layout_marginLeft="100dp"
-                android:layout_marginRight="120dp"/>
-        </LinearLayout>
-
-
-
+        android:layout_height="fill_parent"
+        android:background="@drawable/back2">
 
         <LinearLayout
             android:orientation="horizontal"
@@ -43,7 +25,7 @@
                 android:layout_alignStart="@+id/timePicker"
                 android:foregroundGravity="center_vertical"
                 android:timePickerMode="spinner"
-                />
+                android:focusableInTouchMode="false"/>
 
             <LinearLayout
                     android:orientation="vertical"
@@ -62,8 +44,8 @@
             android:layout_marginBottom="20dp"
             android:layout_gravity="bottom"
             android:gravity="center"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp">
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="2dp">
 
             <ImageButton
                 android:id="@+id/start"
@@ -80,7 +62,7 @@
                 android:adjustViewBounds="true"
                 android:baselineAlignBottom="true"
                 android:padding="5dp"
-                android:layout_marginRight="2dp"
+                android:layout_marginRight="4dp"
                 android:clickable="false"
                 android:background="@drawable/start"/>
 
@@ -97,8 +79,8 @@
                 android:adjustViewBounds="true"
                 android:padding="5dp"
                 android:baselineAlignBottom="true"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"
                 android:background="@drawable/start"/>
 
             <ImageButton
@@ -109,28 +91,36 @@
                 android:layout_weight="1"
                 android:onClick="mathBtn"
                 android:scaleType="fitCenter"
-                android:src="@drawable/calculate2"
                 android:padding="5dp"
                 android:baselineAlignBottom="true"
-                android:layout_marginRight="2dp"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/start"/>
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/start"
+                android:layout_marginRight="4dp"
+                android:src="@drawable/plus"/>
 
             <ImageButton
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/setting"
-                android:layout_weight="1"
+                android:id="@+id/how"
                 android:adjustViewBounds="true"
-                android:onClick="setBtn"
-                android:padding="5dp"
+                android:layout_weight="1"
+                android:onClick="howBtn"
                 android:scaleType="fitCenter"
-                android:src="@drawable/setting"
                 android:baselineAlignBottom="true"
-                android:layout_marginLeft="2dp"
-                android:background="@drawable/start"/>
+                android:layout_marginLeft="4dp"
+                android:background="@drawable/start"
+                android:src="@drawable/help"
+                android:padding="0dp"/>
 
         </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView11"
+            android:src="@drawable/ki"
+            android:alpha="0.2"
+            android:layout_gravity="center"/>
 
 
     </FrameLayout>

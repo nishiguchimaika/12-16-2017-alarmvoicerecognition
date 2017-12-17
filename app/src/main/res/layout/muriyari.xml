@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    >
+
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/back2">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <view
+                class="android.support.v7.widget.Toolbar"
+                android:id="@+id/header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            >
+
+            <LinearLayout
+                android:id="@+id/li"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_marginTop="55dp">
+
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginRight="8dp"
+                    android:src="@drawable/icon2"
+                    android:layout_gravity="top"
+                    android:id="@+id/imageView9"/>
+
+                <View
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:background="@android:color/white"
+                android:rotation="45"
+                android:layout_gravity="center_vertical"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="-6dp"
+                android:layout_weight="1"
+                android:background="@drawable/talking"
+                android:padding="8dp"
+                android:text="一度で絶対に起きたい時にはこの機能を使いましょう！"
+                android:textColor="@android:color/black"
+                android:textSize="20dp"
+                android:id="@+id/id"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="24dp">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/talk"
+                    android:padding="8dp"
+                    android:text="まず寝る前に、足し算のレベルを選択してください。"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    android:id="@+id/id2"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="-6dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/talk"
+                    android:padding="8dp"
+                    android:text="アラームが鳴って起きたら、足し算を15問解いてください。"
+                    android:textColor="@android:color/black"
+                    android:textSize="20dp"
+                    android:id="@+id/id3"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="-6dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/talk"
+                        android:padding="8dp"
+                        android:text="解き終わるまでアラームは止みません！間違えると1問目から解き直しです！"
+                        android:textColor="@android:color/black"
+                        android:textSize="20dp"
+                        android:id="@+id/id4"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </FrameLayout>
+
+    <!-- `■`を45度回転させて`◆`にしている -->
+    <!-- rotationするとwidthが変わるので注意。正方形なので8dp * √2になる -->
+
+    <!-- marginLeft="-6dp"することで`◆`に角丸のTextViewを重ねている。 -->
+
+</LinearLayout>
