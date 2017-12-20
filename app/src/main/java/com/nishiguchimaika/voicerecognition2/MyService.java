@@ -39,14 +39,14 @@ public class MyService extends Service {
         new Handler().postDelayed(runnable, 0);
 
         if(sorm == 1){
-            Intent new_intent = new Intent(MyService.this, Calculate.class);
-            new_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(new_intent);
+            Intent newIntent = new Intent(MyService.this, Calculate.class);
+            newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(newIntent);
             Log.e("sorm","1");
         }else if(sorm == 0) {
-            Intent new_intent = new Intent(MyService.this, Recognize.class);
-            new_intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(new_intent);
+            Intent newIntent = new Intent(MyService.this, Recognize.class);
+            newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(newIntent);
             Log.e("sorm","0");
         }
 

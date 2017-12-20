@@ -43,8 +43,8 @@ public class Recognize extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         again = 0;
-        Intent new_intent = getIntent();
-        again = new_intent.getIntExtra("again", 0);
+        Intent intent = getIntent();
+        again = intent.getIntExtra("again", 0);
         pref = getSharedPreferences("select", Context.MODE_PRIVATE);
         editor = pref.edit();
         editor.putInt("day", 1);
@@ -76,33 +76,20 @@ public class Recognize extends AppCompatActivity {
                 soundPools[i].setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                     @Override
                     public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                        if (sounds == 0) {
-                            soundPools[0].play(soundPoolIds[0], 100, 100, 0, -1, 0);
-                        } else if (sounds == 1) {
-                            soundPools[1].play(soundPoolIds[1], 100, 100, 0, -1, 0);
-                        } else if (sounds == 2) {
-                            soundPools[2].play(soundPoolIds[2], 100, 100, 0 ,-1, 0);
-                        } else if (sounds == 3) {
-                            soundPools[3].play(soundPoolIds[3], 100, 100, 0, -1, 0);
-                        } else if (sounds == 4) {
-                            soundPools[4].play(soundPoolIds[4], 100, 100, 0, -1, 0);
-                        } else if (sounds == 5) {
-                            soundPools[5].play(soundPoolIds[5], 100, 100, 0, -1, 0);
-                        } else if (sounds == 6) {
-                            soundPools[6].play(soundPoolIds[6], 100, 100, 0, -1, 0);
-                        }
+                        int music = sounds;
+                        soundPools[music].play(soundPoolIds[music], 100, 100, 0, -1, 0);
                     }
                 });
                 soundPoolIds[i] = soundPools[i].load(this, soundResourceIds[i], 1);
             }
         }
         try {
-            Intent intent = new Intent(
+            Intent intent2 = new Intent(
                     RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-            intent.putExtra(
+            intent2.putExtra(
                     RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                     RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-            intent.putExtra(
+            intent2.putExtra(
                     RecognizerIntent.EXTRA_PROMPT,
                     "Try speech.");
 
@@ -118,9 +105,7 @@ public class Recognize extends AppCompatActivity {
         if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
 
             ArrayList<String> results = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-
             ArrayList<String> strArray = new ArrayList<String>();
-
             String str2 = results.get(0);
             String rminutes = "at|ad|@|後|あと([0-9]*)(分|分後|分前|ふん|分で|年)";
             String rhourminute = "(at|ad|@|あと|後)([0-9]*)時([0-9]*)(分|分後|分前|ふん|分で|年)";

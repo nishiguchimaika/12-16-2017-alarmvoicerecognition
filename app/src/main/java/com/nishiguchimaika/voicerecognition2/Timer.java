@@ -28,14 +28,7 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
     Button btnStop;
     int q;
     int again;
-    ImageView imageView1;
-    ImageView imageView2;
-    ImageView imageView3;
-    ImageView imageView4;
-    ImageView imageView5;
-    ImageView imageView6;
-    ImageView imageView7;
-    ImageView imageView8;
+    ImageView[] mImageViews;
     int[] imageId;
     int[] imagenumber;
     int lan;
@@ -82,14 +75,14 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
             timer.start();
         }
         btnStop = (Button) findViewById(R.id.btnStop);
-        imageView1 = (ImageView) findViewById(R.id.imageView1);
-        imageView2 = (ImageView) findViewById(R.id.imageView2);
-        imageView3 = (ImageView) findViewById(R.id.imageView3);
-        imageView4 = (ImageView) findViewById(R.id.imageView4);
-        imageView5 = (ImageView) findViewById(R.id.imageView5);
-        imageView6 = (ImageView) findViewById(R.id.imageView6);
-        imageView7 = (ImageView) findViewById(R.id.imageView7);
-        imageView8 = (ImageView) findViewById(R.id.imageView8);
+        mImageViews[0] = (ImageView) findViewById(R.id.imageView1);
+        mImageViews[1] = (ImageView) findViewById(R.id.imageView2);
+        mImageViews[2] = (ImageView) findViewById(R.id.imageView3);
+        mImageViews[3] = (ImageView) findViewById(R.id.imageView4);
+        mImageViews[4] = (ImageView) findViewById(R.id.imageView5);
+        mImageViews[5] = (ImageView) findViewById(R.id.imageView6);
+        mImageViews[6] = (ImageView) findViewById(R.id.imageView7);
+        mImageViews[7] = (ImageView) findViewById(R.id.imageView8);
 
         btnStop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,12 +154,9 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
         @Override
         public void onTick(long millisUntilFinished) {
             setTime(millisUntilFinished);
-            imageView1.setImageResource(imageId[imagenumber[0]]);
-            imageView2.setImageResource(imageId[imagenumber[1]]);
-            imageView4.setImageResource(imageId[imagenumber[2]]);
-            imageView5.setImageResource(imageId[imagenumber[3]]);
-            imageView7.setImageResource(imageId[imagenumber[4]]);
-            imageView8.setImageResource(imageId[imagenumber[5]]);
+            for(int i = 0; i < 5; i++){
+                mImageViews[i].setImageResource(imageId[imagenumber[i]]);
+            }
         }
 
         private void setTime(long millisUntilFinished) {
@@ -181,10 +171,10 @@ public class Timer extends Activity implements TextToSpeech.OnInitListener {
         @Override
         public void onFinish() {
             new Handler().postDelayed(runnable, 0);
-            Intent new_intent = new Intent(Timer.this, Recognize.class);
+            Intent intent = new Intent(Timer.this, Recognize.class);
             again = 1;
-            new_intent.putExtra("again", again);
-            startActivity(new_intent);
+            intent.putExtra("again", again);
+            startActivity(intent);
         }
     }
  }

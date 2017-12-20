@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -20,6 +21,7 @@ public class Calculate extends AppCompatActivity {
     TextView textView2;
     TextView textView3;
     TextView textView4;
+    Button[] mButtons;
     int answer;
     int correct;
     int number;
@@ -32,34 +34,24 @@ public class Calculate extends AppCompatActivity {
     int level;
 
     private void init(){
+        Random random = new Random();
+        Random random2 = new Random();
+        int index = 0;
+        int index2 = 0;
         if(level==0) {
-            Random random = new Random();
-            int index = random.nextInt(20);
-            Random random2 = new Random();
-            int index2 = random2.nextInt(20);
-            textView4.setText(index + "+" + index2 + "=");
-            correct = index + index2;
-            answer = 0;
-            textView.setText(String.valueOf(answer));
+            index = random.nextInt(20);
+            index2 = random2.nextInt(20);
         }else if(level==1){
-            Random random = new Random();
-            int index = random.nextInt(70);
-            Random random2 = new Random();
-            int index2 = random2.nextInt(70);
-            textView4.setText(index + "+" + index2 + "=");
-            correct = index + index2;
-            answer = 0;
-            textView.setText(String.valueOf(answer));
+            index = random.nextInt(70);
+            index2 = random2.nextInt(70);
         }else if(level==2){
-            Random random = new Random();
-            int index = random.nextInt(150);
-            Random random2 = new Random();
-            int index2 = random2.nextInt(150);
-            textView4.setText(index + "+" + index2 + "=");
-            correct = index + index2;
-            answer = 0;
-            textView.setText(String.valueOf(answer));
+            index = random.nextInt(150);
+            index2 = random2.nextInt(150);
         }
+        textView4.setText(index + "+" + index2 + "=");
+        correct = index + index2;
+        answer = 0;
+        textView.setText(String.valueOf(answer));
     }
 
     @Override
@@ -71,6 +63,17 @@ public class Calculate extends AppCompatActivity {
         textView2 = (TextView) findViewById(R.id.textView2);
         textView3 = (TextView) findViewById(R.id.textView3);
         textView4 = (TextView) findViewById(R.id.textView4);
+        mButtons = new Button[10];
+        mButtons[1] = (Button)findViewById(R.id.button1);
+        mButtons[2] = (Button)findViewById(R.id.button2);
+        mButtons[3] = (Button)findViewById(R.id.button3);
+        mButtons[4] = (Button)findViewById(R.id.button4);
+        mButtons[5] = (Button)findViewById(R.id.button5);
+        mButtons[6] = (Button)findViewById(R.id.button6);
+        mButtons[7] = (Button)findViewById(R.id.button7);
+        mButtons[8] = (Button)findViewById(R.id.button8);
+        mButtons[9] = (Button)findViewById(R.id.button9);
+        mButtons[0] = (Button)findViewById(R.id.button0);
         answer = 0;
         correct = 0;
         number = 0;
@@ -93,6 +96,7 @@ public class Calculate extends AppCompatActivity {
         editor = pref.edit();
         level = pref.getInt("level", 0);
         init();
+        button();
     }
 
     public void go(View v){
@@ -119,51 +123,23 @@ public class Calculate extends AppCompatActivity {
         init();
     }
 
-    public void one(View v){
-        answer = answer*10+1;
-        textView.setText(String.valueOf(answer));
-    }
-    public void two(View v){
-        answer = answer*10+2;
-        textView.setText(String.valueOf(answer));
-    }
-    public void three(View v){
-        answer = answer*10+3;
-        textView.setText(String.valueOf(answer));
-    }
-    public void four(View v){
-        answer = answer*10+4;
-        textView.setText(String.valueOf(answer));
-    }
-    public void five(View v){
-        answer = answer*10+5;
-        textView.setText(String.valueOf(answer));
-    }
-    public void six(View v){
-        answer = answer*10+6;
-        textView.setText(String.valueOf(answer));
-    }
-    public void seven(View v){
-        answer = answer*10+7;
-        textView.setText(String.valueOf(answer));
-    }
-    public void eight(View v){
-        answer = answer*10+8;
-        textView.setText(String.valueOf(answer));
-    }
-    public void nine(View v){
-        answer = answer*10+9;
-        textView.setText(String.valueOf(answer));
-    }
-    public void zero(View v){
-        answer = answer*10;
-        textView.setText(String.valueOf(answer));
+
+    private void button(){
+        for(int i = 0; i < 10; i++){
+            final int num = i;
+            mButtons[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    answer = answer * 10 + num;
+                    textView.setText(String.valueOf(answer));
+                }
+            });
+        }
     }
     public void clear(View v){
         answer = 0;
         textView.setText(String.valueOf(answer));
     }
-
 
     @Override
     protected void onStop(){
